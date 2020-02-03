@@ -1,10 +1,10 @@
-package com.epozen.epozenMall.dao.face;
+package com.epozen.epozenMall.dao;
 
 import java.util.List;
 
 import com.epozen.epozenMall.vo.ShopProductVO;
 
-public interface ProductDao {
+public interface ProductMapper {
 
 	List<ShopProductVO> selectAll();
 

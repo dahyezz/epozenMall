@@ -12,20 +12,38 @@
 </head>
 <body>
 
-<table>
-	<thead>
-		<th>상품사진</th>
-		<th>상품명</th>
-		<th>가격</th>
-	</thead>
-	<tbody>
-		<c:forEach items="${proList }" var="i">
-			<tr></tr>
-			<tr>${i.proName }</tr>	
-			<tr>${i.proPrice }</tr>	
-		</c:forEach>
-	</tbody>
-</table>
+<div id="head">
+	<div id="home_name">
+		<a href="/list">EPOZEN mall</a>
+	</div>
+	<div id="login">
+		<a href="/login">로그인</a>
+	</div>
+</div>
+
+<div id="content">
+
+	<div id="list">
+		<table>
+			<thead>
+				<tr>
+					<th>상품사진</th>
+					<th>상품명</th>
+					<th>가격</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${proList }" var="i">
+					<tr>
+						<td><a href="/prodetail?proNo=${i.proNo}">${i.proName }</a></td>	
+						<td>${i.proPrice }</td>	
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+</div>
+
 
 </body>
 </html>

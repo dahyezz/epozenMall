@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 마이바티스 3 Mapper DOCTYPE -->
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.epozen.epozenMall.dao.face.ProductDao">
+<mapper namespace="com.epozen.epozenMall.dao.ProductMapper">
 
 	<select id="selectAll" resultType="com.epozen.epozenMall.vo.ShopProductVO">
 		SELECT pro_no proNo, pro_cate proCate, pro_name proName, pro_price proPrice, pro_detail proDetail, img_no imgNo

@@ -8,9 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan(basePackages="com.epozen.epozenMall.dao.face")
+@MapperScan(basePackages="com.epozen.epozenMall.dao")
 public class MyBatisConfig {
 
 	@Bean
@@ -18,7 +19,9 @@ public class MyBatisConfig {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		
 		sqlSessionFactory.setDataSource(dataSource);
-		sqlSessionFactory.setTypeAliasesPackage("com.epozen.epozenMall.vo");
+//		sqlSessionFactory.setTypeAliasesPackage("com.epozen.epozenMall.vo");
+		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		sqlSessionFactory.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));
 		
 		return sqlSessionFactory.getObject();
 	}
