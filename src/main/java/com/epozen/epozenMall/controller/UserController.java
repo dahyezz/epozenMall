@@ -14,6 +14,6 @@ public class UserController {
 	
 	@GetMapping("/")
 	public String test() {
-		return "maing";
+		return "mainga";
 	}
 }
