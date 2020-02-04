@@ -15,6 +15,7 @@ import com.epozen.epozenMall.service.face.UserService;
 import com.epozen.epozenMall.vo.ShopUserVO;
 import com.epozen.epozenMall.vo.UserOrderVO;
 
+
 @Controller
 public class UserController {
 
@@ -106,5 +107,6 @@ public class UserController {
 		session.invalidate();
 
 		return "redirect:/list";
+
 	}
 }

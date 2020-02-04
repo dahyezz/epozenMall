@@ -2,12 +2,14 @@
 <!-- 마이바티스 3 Mapper DOCTYPE -->
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.epozen.epozenMall.dao.ProductMapper">
-
+	
+	<!-- 상품 목록페이지 상품 카운트 -->
 	<select id="selectCntAll" resultType="int">
 		SELECT COUNT(*)
 		FROM shop_product
 	</select>
 	
+	<!-- 상품 목록 페이지 -->
 	<select id="selectAll"  parameterType="com.epozen.epozenMall.util.Paging" resultType="com.epozen.epozenMall.vo.ShopProductVO">
 <!-- 		SELECT pro_no proNo, pro_cate proCate, pro_name proName, pro_price proPrice, pro_detail proDetail, img_no imgNo -->
 <!-- 		FROM SHOP_PRODUCT -->
@@ -22,5 +24,37 @@
 				)
 			WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
+	
+	<!-- 상품 상세 페이지 -->
+	<select id="selectProDetail" parameterType="int" resultType="com.epozen.epozenMall.vo.ShopProductVO">
+		SELECT 
+			pro_no proNo,
+			pro_cate proCate,
+			pro_name proName,
+			pro_price proPrice,
+			pro_detail proDetail,
+			img_no imgNo
+		 FROM
+			SHOP_PRODUCT 
+		WHERE 
+			pro_no = #{proNo}		
+	</select>
+	
+	<!-- 장바구니 담기 -->
+	<insert id="insertInCart">
+		INSERT INTO SHOP_CART(
+			cart_no cartNo,
+			user_id userId,
+			pro_no proNo,
+			cart_amount cartAmount,
+			cart_Price cartprice)
+		VALUES (
+			seq_cartNo.nextval,
+			#{userId},
+			#{proNo},
+			#{cartAmount},
+			#{cartprice} 
+		)
+	</insert>
 
 </mapper>
