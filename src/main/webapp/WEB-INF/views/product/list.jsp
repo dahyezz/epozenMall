@@ -161,5 +161,11 @@
 		<a href="/ "><img src="/image/chat.PNG" /></a>
 	</div>
 </div>
+<<script type="text/javascript">
+<!--
+
+//-->
+</script>
+
 </body>
 </html>

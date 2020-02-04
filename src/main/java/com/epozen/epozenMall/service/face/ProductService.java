@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.epozen.epozenMall.util.Paging;
+import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
 public interface ProductService {
@@ -17,5 +18,13 @@ public interface ProductService {
 	List<ShopProductVO> selectAllPro(Paging paging);
 
 	Paging getCurPage(Map<String, Object> map);
+	
+	/**
+	 * 상품 상세 페이지 조회
+	@return detail
+	*/
+	ShopProductVO selectProDetail(int proNo);
 
+	void insertInCart(ShopCartVO VO);
+;
 }
