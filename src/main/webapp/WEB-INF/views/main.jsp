@@ -29,9 +29,13 @@
 	margin: 10px;
 }
 
-#head > a {
+#home_name > a {
 	text-decoration: none !important;
 	color: black;
+}
+#loginStatus>a {
+	text-decoration: none;
+	margin-right: 15px;
 }
 </style>
 
@@ -43,9 +47,14 @@
 		<a href="/list">EPOZEN mall</a>
 	</div>
 	<div id="loginStatus">
-		<a href="/login">로그인</a>
+		<c:if test="${empty login }">
+			<a href="/login">로그인</a>
+		</c:if>
+		<c:if test="${login }">
+			<a href="/orderdetail">마이페이지</a>
+			<a href="/cart">장바구니</a>
+			<a href="/logout">로그아웃</a>
+		</c:if>
 	</div>
 </div>
 
-</body>
-</html>

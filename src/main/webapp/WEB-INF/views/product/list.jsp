@@ -1,19 +1,23 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- jQuery 2.2.4 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <!-- Bootstrap 3 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" >
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
 <c:import url="/WEB-INF/views/main.jsp" />
 
 <style type="text/css">
 .content {
-	margin: 3%
+	margin: 3%;
 }
 
 .content > select {
@@ -161,11 +165,4 @@
 		<a href="/ "><img src="/image/chat.PNG" /></a>
 	</div>
 </div>
-<<script type="text/javascript">
-<!--
-
-//-->
-</script>
-
 </body>
-</html>

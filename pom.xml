@@ -86,6 +86,7 @@
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
+
         <!-- 리로드 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -93,6 +94,7 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 	</dependencies>
 
 	<build>
