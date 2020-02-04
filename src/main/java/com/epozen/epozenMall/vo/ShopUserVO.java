@@ -7,7 +7,7 @@ public class ShopUserVO {
 	private String userId;
 	private String userPassword;
 	private String userName;
-	private int userPhone;
+	private String userPhone;
 	private String userAdd;
 
 	@Override
