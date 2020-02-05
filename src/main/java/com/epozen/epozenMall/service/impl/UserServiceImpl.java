@@ -43,4 +43,14 @@ public class UserServiceImpl implements UserService {
 	public List<UserOrderVO> getOrderList(ShopUserVO shopUserVO) {
 		return userMapper.selectOrderByUserId(shopUserVO);
 	}
+	
+	@Override
+	public void register(ShopUserVO shopUserVO) {
+		userMapper.insertUser(shopUserVO);
+	}
+	
+	@Override
+	public int idcheck(String userId) {
+		return userMapper.idcheck(userId);
+	}
 }

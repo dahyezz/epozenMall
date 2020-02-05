@@ -48,4 +48,32 @@
 		ORDER BY B.order_no desc
 	</select>
 
+	<!-- 회원가입 -->
+	<insert id="insertUser" >
+		INSERT INTO SHOP_USER(
+			user_id,
+			user_password ,
+			user_name,
+			user_phone,
+			user_add
+		) VALUES(
+			#{userId},
+			#{userPassword},
+			#{userName},
+			#{userPhone},
+			#{userAdd}
+		)
+	</insert>
+	
+	<!-- 아이디 체크 -->
+	<select id="idcheck" parameterType="String" resultType="Integer">
+      SELECT 
+      	COUNT(*) 
+      FROM 
+      	SHOP_USER
+      WHERE
+          user_id = #{userId}
+</select>
+	
+	
 </mapper>

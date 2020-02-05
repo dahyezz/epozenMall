@@ -1,14 +1,19 @@
 package com.epozen.epozenMall.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epozen.epozenMall.service.face.UserService;
@@ -22,10 +27,30 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/")
-	public String test() {
-		return "maingaa";
+	//회원 가입
+	@GetMapping("/register")
+	public String register() {
+		return "user/register";
 	}
+	//회원가입 API
+	@PostMapping("/registerProc")
+	public String postRegister(ShopUserVO shopUserVO) {
+		
+		userService.register(shopUserVO);		
+		return "redirect:/login";
+	}
+	//아이디 체크
+	 @RequestMapping("/idcheck")
+	    @ResponseBody
+	    public Map<Object, Object> idcheck(@RequestBody String userid) {
+	        
+	        int count = 0;
+	        Map<Object, Object> map = new HashMap<Object, Object>();	 
+	        count = userService.idcheck(userid);
+	        map.put("cnt", count);
+	 
+	        return map;
+	    }
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {

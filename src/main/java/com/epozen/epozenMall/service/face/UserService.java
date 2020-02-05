@@ -44,5 +44,8 @@ public interface UserService {
 	 */
 	List<UserOrderVO> getOrderList(ShopUserVO shopUserVO);
 
+	void register(ShopUserVO shopUserVO);
+
+	int idcheck(String userid);
 
 }

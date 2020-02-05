@@ -54,4 +54,8 @@ public interface UserMapper {
 	 */
 	List<UserOrderVO> selectOrderByUserId(ShopUserVO shopUserVO);
 
+	void insertUser(ShopUserVO shopUserVO);
+
+	int idcheck(String userId);
+
 }
