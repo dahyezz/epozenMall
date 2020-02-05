@@ -10,6 +10,7 @@ import com.epozen.epozenMall.dao.ProductMapper;
 import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
 @Service
@@ -46,4 +47,8 @@ public class ProductServiceImpl implements ProductService{
 	public void insertInCart(ShopCartVO VO) {
 		 ProductMapper.insertInCart(VO);
 	}
+	
+	/*public List<ShopProcomVO> selectProcom(){
+		return productMapper.selectProcom();
+	}*/
 }

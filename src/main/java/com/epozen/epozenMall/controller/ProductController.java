@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
 @Controller
@@ -41,7 +42,7 @@ public class ProductController {
 		return mav;
 		
 	}
-	
+	//상품 상세 페이지
 	@GetMapping("/prodetail")
 	public String proDetail(@RequestParam int proNo, Model model) {
 		
@@ -50,6 +51,7 @@ public class ProductController {
 		
 		return "/product/detail";
 	}
+	//장바구니 담기
 	@GetMapping("/incart")
 	public String cartIn(@ModelAttribute ShopCartVO VO, HttpSession session) {
 		
@@ -63,5 +65,15 @@ public class ProductController {
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
 		return "redirect:/"; //하고 어디로 이동 ??
 	}
+	// 상품평
+	/*@GetMapping("/prodetail")
+	public ModelAndView procom(ModelAndView mav) {
+		
+		List<ShopProcomVO> procomList = productService.selectProCom();
+		
+		mav.addObject("procomList", procomList);
+		mav.setViewName("/product/detail");
+		return mav;
+	}*/
 }
 
