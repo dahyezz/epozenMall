@@ -10,6 +10,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+		
 	var total = $("#total").val();
 
 	/* model로 넘겨준 cartList받기 */
@@ -111,10 +112,11 @@ $(document).ready(function() {
 	select_amt.on("change", function(){
 		var selected = $(this).val();
 		var originPrice = $(this).parent().parent().children().eq(3).text();
+		
+		console.log(selected)
+		console.log(originPrice);
 		var changePrice = originPrice * selected;
 		
-		console.log(originPrice)
-		console.log(changePrice);
 		$(this).parent().parent().children().eq(3).html(changePrice);
 	})
 	
@@ -148,15 +150,6 @@ function calcTotal(productPrice,status,total){
 	}
 // 	console.log(total)
 	return total;
-}
-
-/* select 태그 변경 시 가격 변경 */
-function changePrice(){
-// 	var selected = document.getElementById("amount");
-
-// 	var selectValue = selected.options[selected.selectedIndex].value;
-// 	console.log(selectValue);
-	
 }
 
 function proStatus(deliveryCost, total){
