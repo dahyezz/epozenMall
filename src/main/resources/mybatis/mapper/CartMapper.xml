@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.epozen.epozenMall.dao.CartMapper">
+
+	<!-- 장바구니 페이지 -->
+	<select id="selectCartAllByUserId" parameterType="com.epozen.epozenMall.vo.ShopUserVO" resultType="com.epozen.epozenMall.vo.UserOrderVO">
+		SELECT 
+			A.cart_no cartNo, 
+			B.img_no imgNo, 
+			B.pro_name proName, 
+			B.pro_price proPrice, 
+			A.cart_amount cartAmount
+		FROM 
+			shop_cart A, shop_product B
+		WHERE 
+			A.pro_no = B.pro_no
+		AND 
+			A.user_id = #{userId }
+	</select>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteCartByCartNo" parameterType="int">
+		DELETE 
+			shop_cart
+		WHERE 
+			cart_no=#{cartNo }
+	</delete>
+
+</mapper>
