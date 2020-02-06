@@ -11,9 +11,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var total = $("#total").val();
-	
+
 	/* model로 넘겨준 cartList받기 */
-	var size = 3; //checkbox제어 하기 위해 size 체크
+	var size = ${cartList.size() }; //checkbox제어 하기 위해 size 체크
 	
 	/* 계속 쇼핑하기 버튼  동작 */
 	$('#shopBtn').click(function() {
@@ -99,12 +99,25 @@ $(document).ready(function() {
 		
 		proStatus(deliveryCost, total);
 	});
+
+	/* 상품 리스트 테이블에 가격정보 보이기   가격 = 원가*수량 */
+	$("[id^='price_']").each(function(){
+		$(this).innerHTML = 30000
+
+	});
 	
-	$("[id^='amount_']").each(function(){
+	/* 수량 선택 변경 시 가격 정보 변경 */
+	var select_amt = $("[id^='amount_']");
+	select_amt.on("change", function(){
+		var selected = $(this).val();
+		var originPrice = $(this).parent().parent().children().eq(3).text();
+		var changePrice = originPrice * selected;
 		
+		console.log(originPrice)
+		console.log(changePrice);
+		$(this).parent().parent().children().eq(3).html(changePrice);
 	})
 	
-
 });
 
 //전체 체크/체크해제 되는 동작
@@ -171,7 +184,12 @@ function proStatus(deliveryCost, total){
 }
 </style>
 
-
+<!-- 총 주문금액 계산 -->
+<c:set var="sum" value="0" />
+<c:forEach items="${cartList }" var="i">
+	<c:set var="sum" value="${sum + i.proPrice }" />
+</c:forEach>
+<input type="hidden" id="total" value="${sum }" />
 
 <div class="cartContent">
 	<div class="cartHead">
@@ -190,87 +208,27 @@ function proStatus(deliveryCost, total){
 				<th>배송비</th>
 			</tr>
 			
-				
-			<tr id="7">
-				<td><input type="checkbox" class="orderChk" name="orderChk" id="orderChk_7" checked="checked" value="7"/></td>
+			<c:forEach items="${cartList }" var="i">
+			<tr id="${i.cartNo }">
+				<td><input type="checkbox" class="orderChk" name="orderChk" id="orderChk_${i.cartNo }" checked="checked" value="${i.cartNo }"/></td>
 				<td>
-				
+				<c:if test="${i.imgNo eq 0 }">
 					<img id="thumbnail" src="/image/default.png">	
+				</c:if>
 				</td>
-				<td>상품명70</td>
-				<td id="price">7000</td>
+				<td>${i.proName }</td>
+				<td id="price_${i.proNo }">${i.proPrice }</td>
 				<td>
-					<select name="amount" id="amount_7">
-					
-						<option value="1"  >1</option> 
-					
-						<option value="2" selected >2</option> 
-					
-						<option value="3"  >3</option> 
-					
-						<option value="4"  >4</option> 
-					
-						<option value="5"  >5</option> 
-					
+					<select name="amount" id="amount_${i.cartNo }">
+					<c:forEach begin="1" end="5" var="j">
+						<option value="${j}" <c:if test="${i.cartAmount eq j }">selected</c:if>>${j}</option> 
+					</c:forEach>
 					</select>
 				</td>
 				<td id="delivery">2,500원</td>
 			</tr>
-			
-				
-			<tr id="9">
-				<td><input type="checkbox" class="orderChk" name="orderChk" id="orderChk_9" checked="checked" value="9"/></td>
-				<td>
-				
-					<img id="thumbnail" src="/image/default.png">	
-				</td>
-				<td>기모 후드티 블랙</td>
-				<td id="price">35000</td>
-				<td>
-					<select name="amount" id="amount_9">
-					
-						<option value="1" selected >1</option> 
-					
-						<option value="2"  >2</option> 
-					
-						<option value="3"  >3</option> 
-					
-						<option value="4"  >4</option> 
-					
-						<option value="5"  >5</option> 
-					
-					</select>
-				</td>
-				<td id="delivery">2,500원</td>
-			</tr>
-			
-				
-			<tr id="10">
-				<td><input type="checkbox" class="orderChk" name="orderChk" id="orderChk_10" checked="checked" value="10"/></td>
-				<td>
-				
-					<img id="thumbnail" src="/image/default.png">	
-				</td>
-				<td>상품명64</td>
-				<td id="price">35000</td>
-				<td>
-					<select name="amount" id="amount_10">
-					
-						<option value="1" selected >1</option> 
-					
-						<option value="2"  >2</option> 
-					
-						<option value="3"  >3</option> 
-					
-						<option value="4"  >4</option> 
-					
-						<option value="5"  >5</option> 
-					
-					</select>
-				</td>
-				<td id="delivery">2,500원</td>
-			</tr>
-			
+			</c:forEach>	
+
 		</table>
 		<button id="deleteBtn">삭제</button>
 		<p>50,000원 이상 결제 시 배송비 무료</p>
@@ -284,7 +242,7 @@ function proStatus(deliveryCost, total){
 		<button id="shopBtn">계속 쇼핑하기</button>
 		<button id="buyBtn">구매하기</button>
 	</div>
-	<input type="hidden" id="total" value="77000" />
+	
 </div>
 
 </body>

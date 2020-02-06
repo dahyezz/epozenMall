@@ -36,16 +36,22 @@
 			
 	<select id="selectOrderByUserId" parameterType="com.epozen.epozenMall.vo.ShopUserVO" resultType="com.epozen.epozenMall.vo.UserOrderVO">
 		SELECT 
+			A.pro_no proNo,
 			B.order_date orderDate, 
 			B.order_state orderState, 
 			A.img_no imgNo, 
 			A.pro_name proName, 
 			A.pro_price proPrice 
-		FROM shop_product A, shop_order B, shop_orderde C
-		WHERE B.user_id = #{userId }
-		AND B.order_no = C.order_no
-		AND A.pro_no = C.pro_no
-		ORDER BY B.order_no desc
+		FROM 
+			shop_product A, shop_order B, shop_orderde C
+		WHERE 
+			B.user_id = #{userId }
+		AND 
+			B.order_no = C.order_no
+		AND 
+			A.pro_no = C.pro_no
+		ORDER BY 
+			B.order_no desc
 	</select>
 
 	<!-- 회원가입 -->

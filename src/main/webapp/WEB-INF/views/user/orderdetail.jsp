@@ -6,6 +6,47 @@
 
 <c:import url="/WEB-INF/views/main.jsp" />
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#writeBtn').click(function(){
+		
+		var proNo = $(this).val();
+		var proName = $('#writeProName').val();
+		var orderDate = $('#writeorderDate').val();
+		
+		var $form = $("<form>")
+		.attr("action","/procom")
+		.attr("method", "get")
+		.append(
+			$("<input>")
+					.attr("type","hidden")
+					.attr("name", "proNo")
+					.attr("value", proNo)
+		)
+		.append(
+				$("<input>")
+						.attr("type","hidden")
+						.attr("name", "proName")
+						.attr("value", proName)
+			)
+		.append(
+				$("<input>")
+						.attr("type","hidden")
+						.attr("name", "orderDate")
+						.attr("value", orderDate)
+			);
+		$(document.body).append($form);
+		$form.submit();
+
+	});
+	
+	$('#cancelBtn').click(function(){
+		alert("준비중입니다.")
+	});
+});
+
+</script>
+
 <style type="text/css">
 ul {
     list-style-type: none;
@@ -71,19 +112,30 @@ li a:hover:not(.active) {
 				</tr>
 			</thead>
 			<tbody>
-<%-- 				<c:forEach items="${orderList }" var="i"> --%>
-<!-- 					<tr> -->
-<%-- 						<td>${i.orderDate }</td> --%>
-<!-- 						<td> -->
-<%-- 						<c:if test="${i.imgNo eq 0 }"> --%>
-<!-- 							<img id="thumbnail" src="/image/default.png">	 -->
-<%-- 						</c:if> --%>
-<!-- 						</td> -->
-<%-- 						<td>${i.proName }</td> --%>
-<%-- 						<td>${i.orderState }</td> --%>
-<!-- 						<td></td> -->
-<!-- 					</tr> -->
-<%-- 				</c:forEach> --%>
+				<c:forEach items="${orderList }" var="i">
+					<tr>
+						<td>
+						<fmt:formatDate value="${i.orderDate }" pattern="yyyy/MM/dd"/>
+						</td>
+						<td>
+						<c:if test="${i.imgNo eq 0 }">
+							<img id="thumbnail" src="/image/default.png">	
+						</c:if>
+						</td>
+						<td><a href="/prodetail?proNo=${i.proNo}">${i.proName }</a></td>
+						<td>${i.orderState }</td>
+						<td>
+						<c:if test="${i.orderState eq '배송준비중'}">
+							<button id="cancelBtn">취소요청</button>
+						</c:if>
+						<c:if test="${i.orderState eq '배송완료'}">
+							<input type="hidden" id="writeProName" value="${i.proName }" />
+							<input type="hidden" id="writeorderDate" value="<fmt:formatDate value='${i.orderDate }' pattern='yyyy/MM/dd'/>" />
+							<button id="writeBtn" value="${i.proNo }">리뷰쓰기</button>
+						</c:if>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			</table>
 		</div>
