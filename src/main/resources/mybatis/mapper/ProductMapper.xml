@@ -47,13 +47,33 @@
 			user_id userId,
 			pro_no proNo,
 			cart_amount cartAmount,
-			cart_Price cartprice)
+			cart_Price cartPrice
+		
+		)
 		VALUES (
 			seq_cartNo.nextval,
 			#{userId},
 			#{proNo},
 			#{cartAmount},
-			#{cartprice} 
+			#{cartPrice}
+			 
+		)
+	</insert>
+	
+	<insert id="insertOrder" parameterType="com.epozen.epozenMall.vo.ShopUserVO">
+		INSERT INTO SHOP_ORDER (
+			order_no orderNo,
+			user_id userId,
+			order_date orderDate,
+			order_state orderState,
+			order_price orderPrice
+		)	
+		VALUES (
+			#{orderNo},
+			#{userId},
+			#{orderDate},
+			#{orderState},
+			#{orderPrice}
 		)
 	</insert>
 

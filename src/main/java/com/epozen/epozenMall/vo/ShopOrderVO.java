@@ -11,6 +11,7 @@ public class ShopOrderVO {
 	private Date orderDate;
 	private String orderState;
 	private int orderPrice;
+	
 
 	@Override
 	public String toString() {

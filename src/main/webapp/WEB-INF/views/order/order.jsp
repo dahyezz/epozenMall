@@ -13,6 +13,7 @@
 <div>
 <h1> 주문/결제</h1>
 	<div>
+	<form action="/order">
 		<table>
 			<tr>
 				<td>구매자 정보</td>
@@ -35,22 +36,22 @@
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td></td>
+				<td><input type="text" name="userName"></td>
 			</tr>	
 			<tr>
 				<td>배송지</td>
-				<td></td>
+				<td><input type="text" name="userAdd"></td>
 			</tr>
 			<tr>
 				<td>휴대폰 번호</td>
-				<td></td>
+				<td><input type="text" name="userPhone"></td>
 			</tr>	
 			<tr>
 				<td>배송 요청 사항</td>
-				<td></td>
+				<td><input type="text" name="userRequest"></td>
 			</tr>
 					<tr>
-				<td>총 합계</td>
+				<td>총 합계 : </td>
 				<td></td>
 			</tr>
 			<tr>
@@ -63,9 +64,11 @@
 			</tr>
 			<tr>
 				<td>결제 방법</td>
-				<td></td>
+				<td><input type="radio" name="chk_info" >무통장입금</td>
+				<td><input type="radio" name="chk_info" >신용/체크카드</td>
 			</tr>
 		</table>
+		</form>
 	</div>
 </div>
 

@@ -10,6 +10,7 @@ import com.epozen.epozenMall.dao.ProductMapper;
 import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
@@ -45,9 +46,13 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	/*장바구니 담기 */
 	public void insertInCart(ShopCartVO VO) {
-		 ProductMapper.insertInCart(VO);
+		 productMapper.insertInCart(VO);
 	}
 	
+	@Override
+	public void insertOrder(ShopOrderVO shopOrderVO) {
+		productMapper.insertOrder(shopOrderVO);
+	}
 	/*public List<ShopProcomVO> selectProcom(){
 		return productMapper.selectProcom();
 	}*/
