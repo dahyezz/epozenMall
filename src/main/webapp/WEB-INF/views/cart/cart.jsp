@@ -106,8 +106,17 @@ $(document).ready(function() {
 
 	});
 	
-
-
+	/* 수량 선택 변경 시 가격 정보 변경 */
+	var select_amt = $("[id^='amount_']");
+	select_amt.on("change", function(){
+		var selected = $(this).val();
+		var originPrice = $(this).parent().parent().children().eq(3).text();
+		var changePrice = originPrice * selected;
+		
+		console.log(originPrice)
+		console.log(changePrice);
+		$(this).parent().parent().children().eq(3).html(changePrice);
+	})
 	
 });
 
@@ -211,7 +220,7 @@ function proStatus(deliveryCost, total){
 				<td id="price_${i.proNo }">${i.proPrice }</td>
 				<td>
 					<select name="amount" id="amount_${i.cartNo }">
-						<c:forEach begin="1" end="5" var="j">
+					<c:forEach begin="1" end="5" var="j">
 						<option value="${j}" <c:if test="${i.cartAmount eq j }">selected</c:if>>${j}</option> 
 					</c:forEach>
 					</select>
