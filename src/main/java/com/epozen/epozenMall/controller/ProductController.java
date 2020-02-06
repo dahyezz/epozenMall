@@ -49,10 +49,11 @@ public class ProductController {
 	public String proDetail(@RequestParam int proNo, Model model) {
 		
 		ShopProductVO detail = productService.selectProDetail(proNo);
-		model.addAttribute("detail", detail);
 		
+		model.addAttribute("detail", detail);
 		return "/product/detail";
 	}
+	
 	//장바구니 담기
 	@GetMapping("/incart")
 	public String cartIn(@ModelAttribute ShopCartVO VO, HttpSession session) {
