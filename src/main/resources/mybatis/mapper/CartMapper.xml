@@ -7,6 +7,7 @@
 	<select id="selectCartAllByUserId" parameterType="com.epozen.epozenMall.vo.ShopUserVO" resultType="com.epozen.epozenMall.vo.UserOrderVO">
 		SELECT 
 			A.cart_no cartNo, 
+			A.pro_no proNo,
 			B.img_no imgNo, 
 			B.pro_name proName, 
 			B.pro_price proPrice, 

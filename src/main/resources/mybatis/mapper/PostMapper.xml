@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 마이바티스 3 Mapper DOCTYPE -->
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.epozen.web.dao.face.PostDao">
-
+<mapper namespace="com.epozen.epozenMall.dao.PostMapper">
+	
+	<!-- 상품평 작성 -->
+	<insert id="insertProComByVO" parameterType="com.epozen.epozenMall.vo.ShopProcomVO">
+		INSERT INTO shop_procom (
+			procom_no, 
+			user_id, 
+			pro_no, 
+			procom_contents, 
+			procom_regdate, 
+			img_no
+		) VALUES (
+			SHOP_PROCOM_SEQ.nextval, 
+			#{userId }, 
+			#{proNo }, 
+			#{procomContents }, 
+			TO_DATE(SYSDATE,'yyyy/MM/dd'),
+			0
+		)
+	</insert>
 
 </mapper>

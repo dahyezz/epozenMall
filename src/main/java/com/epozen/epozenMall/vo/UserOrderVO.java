@@ -4,7 +4,7 @@ import java.util.Date;
 
 import lombok.Data;
 
-//주문 목록 리스트 조회하는 VO
+//주문목록, 장바구니 리스트 조회하는 VO
 @Data
 public class UserOrderVO {
 	private Date orderDate;
@@ -13,5 +13,7 @@ public class UserOrderVO {
 	private String proName;
 	private int proPrice;
 	private int cartNo;
+	private int proNo;
+	private int cartAmount;
 	
 }
