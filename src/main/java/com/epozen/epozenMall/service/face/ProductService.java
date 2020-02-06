@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
@@ -28,6 +29,7 @@ public interface ProductService {
 
 	void insertInCart(ShopCartVO VO);
 
+	void insertOrder(ShopOrderVO shopOrderVO);
 /*	List<ShopProcomVO> selectProCom();*/
 	
 

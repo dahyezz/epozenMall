@@ -11,13 +11,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopOrderVO;
+import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
+import com.epozen.epozenMall.vo.ShopUserVO;
 
 @Controller
 public class ProductController {
@@ -25,7 +30,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@GetMapping("/list")
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue="1") int curPage, Map<String, Object> map) {
 		
 		map.put("curPage", curPage);
@@ -62,6 +67,17 @@ public class ProductController {
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
 		return "redirect:/"; //하고 어디로 이동 ??
 	}
+	
+	@GetMapping("/order")
+	public String orderProduct( ShopOrderVO shopOrderVO) {
+		
+		productService.insertOrder(shopOrderVO);
+		
+		return "/order/order";
+		
+	}
+	//	ShopUserVO user = (ShopUserVO)session.getAttribute("user");
+	//	String userId = user.getUserId();
 	// 상품평
 	/*@GetMapping("/prodetail")
 	public ModelAndView procom(ModelAndView mav) {

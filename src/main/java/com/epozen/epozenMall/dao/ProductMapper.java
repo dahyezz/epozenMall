@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
@@ -19,9 +20,9 @@ public interface ProductMapper {
 	ShopProductVO selectProDetail(int proNo);
 	
 	//장바구니 담기
-	static void insertInCart(ShopCartVO vO) {
-		
-	}
+	void insertInCart(ShopCartVO vO);
+	
+	void insertOrder(ShopOrderVO shopOrderVO);
 
 	// List<ShopProcomVO> selectProcom();
 }
