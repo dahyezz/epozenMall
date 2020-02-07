@@ -86,6 +86,9 @@ li a:hover:not(.active) {
 	font-size: 30px;
 	font-weight: 600;
 }
+#datailTable>table {
+	width: 100%;
+}
 </style>
 
 <div class="orderContent">

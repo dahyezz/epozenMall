@@ -4,8 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
-
 <c:import url="/WEB-INF/views/main.jsp" />
 
 <script type="text/javascript">
@@ -69,41 +67,36 @@ $(document).ready(function() {
 		
 	/* 체크된 행들의 가격 처리 */
 	total *= 1;
-
 	var deliveryCost = 0;
-	if(total >= 50000)
-		deliveryCost = 0;
-	else
-		deliveryCost = 2500;
 	
-	document.getElementById("proPrice").innerHTML = total;
-	document.getElementById("deliveryCost").innerHTML = deliveryCost;
-	document.getElementById("totalPrice").innerHTML = total+deliveryCost;
-	
+	proStatus(deliveryCost, total);
+
+	/* 체크박스 체크/해제 시 총 주문금액 계산 */
 	$("input:checkbox").on('click', function(){
+		var rows = $('#cartInfo tr');
+		total = 0; //전체금액 초기화
 		
-		if($(this).prop('checked')){
-			var check = $(this);
-			var tr = check.parent().parent().eq(0);
-			var td = tr.children();
-			var price = td.eq(3).text();
-			price *= 1;
-			total = calcTotal(price,'add',total);
-		} else {
-			var check = $(this);
-			var tr = check.parent().parent().eq(0);
-			var td = tr.children();
-			var price = td.eq(3).text();
-			price *= 1;
-			total = calcTotal(price,'subtract',total);
+		if($(this).prop('checked')){ //체크 시
+			$(rows).each(function(idx){
+				//idx!=0 : idx=0인 경우는 th태그임
+				if(idx!=0 && $(this).children().children().eq(0).prop('checked')){ //체크된 항목들만 계산
+					var eachPrice = $(rows[idx]).find('td').eq(3).text();
+					eachPrice *= 1;
+					total += eachPrice;
+				}
+			});	
+		} else { //체크 해제 시
+			$(rows).each(function(idx){
+				//체크된 항목들만 계산
+				if(idx!=0 && $(this).children().children().eq(0).prop('checked')){
+					var eachPrice = $(rows[idx]).find('td').eq(3).text();
+					eachPrice *= 1;
+					total += eachPrice;
+				}
+			});
 		}
 		
 		proStatus(deliveryCost, total);
-	});
-
-	/* 상품 리스트 테이블에 가격정보 보이기   가격 = 원가*수량 */
-	$("[id^='price_']").each(function(){
-		$(this).innerHTML = 30000
 
 	});
 	
@@ -111,14 +104,33 @@ $(document).ready(function() {
 	var select_amt = $("[id^='amount_']");
 	select_amt.on("change", function(){
 		var selected = $(this).val();
-		var originPrice = $(this).parent().parent().children().eq(3).text();
 		
-		console.log(selected)
-		console.log(originPrice);
-		var changePrice = originPrice * selected;
+		$(this).parent().parent().children().eq(3).html(selected); //가격정보에 해당 데이터 삽입
 		
-		$(this).parent().parent().children().eq(3).html(changePrice);
+		//각 상품별 배송비 제어
+		var dCost = $(this).parent().parent().children().eq(5).text(); 
+		if(selected>50000){
+			$(this).parent().parent().children().eq(5).html("0원");
+		} else {
+			$(this).parent().parent().children().eq(5).html("2,500원");
+		}
+		
+		/* tr값 변경 시 */
+		$('#cartInfo tr td').change(function(){
+			var rows = $('#cartInfo tr');
+			total = 0;
+			$(rows).each(function(idx){
+				if(idx!=0  && $(this).children().children().eq(0).prop('checked') ){
+					var eachPrice = $(rows[idx]).find('td').eq(3).text();
+					eachPrice *= 1;
+					total += eachPrice;
+				}
+			});
+			proStatus(deliveryCost, total)
+		}); 
+		
 	})
+	
 	
 });
 
@@ -141,26 +153,18 @@ function checkAll() {
 	}
 }
 
-/* 총 주문금액 계산 */
-function calcTotal(productPrice,status,total){
-	if(status=='add'){
-		total = total + productPrice;	
-	} else if(status=='subtract') {
-		total = total - productPrice;
-	}
-// 	console.log(total)
-	return total;
-}
-
+/* 총 주문금액 + 총 배송비 = 총 주문금액 보이기 */
 function proStatus(deliveryCost, total){
+	// 총 주문금액이 50000원 이상이면 배송비 0원 처리
 	if(total >= 50000)
 		deliveryCost = 0;
 	else
 		deliveryCost = 2500;
-	
+
 	document.getElementById("proPrice").innerHTML = total;
 	document.getElementById("deliveryCost").innerHTML = deliveryCost;
-	document.getElementById("totalPrice").innerHTML = total+deliveryCost;
+	document.getElementById("totalPrice").innerHTML = total+deliveryCost; 
+
 }
 </script>
 
@@ -180,7 +184,7 @@ function proStatus(deliveryCost, total){
 <!-- 총 주문금액 계산 -->
 <c:set var="sum" value="0" />
 <c:forEach items="${cartList }" var="i">
-	<c:set var="sum" value="${sum + i.proPrice }" />
+	<c:set var="sum" value="${sum + i.proPrice*i.cartAmount }" />
 </c:forEach>
 <input type="hidden" id="total" value="${sum }" />
 
@@ -191,7 +195,7 @@ function proStatus(deliveryCost, total){
 	</div>
 	
 	<div class="cartDetail">
-		<table>
+		<table id="cartInfo">
 			<tr>
 				<th><input type="checkbox" id="checkAllOrders" onclick="checkAll()" checked="checked" /></th>
 				<th>상품사진</th>
@@ -210,11 +214,11 @@ function proStatus(deliveryCost, total){
 				</c:if>
 				</td>
 				<td>${i.proName }</td>
-				<td id="price_${i.proNo }">${i.proPrice }</td>
+				<td class="prClasss" id="price_${i.proNo }">${i.proPrice * i.cartAmount }</td>
 				<td>
 					<select name="amount" id="amount_${i.cartNo }">
 					<c:forEach begin="1" end="5" var="j">
-						<option value="${j}" <c:if test="${i.cartAmount eq j }">selected</c:if>>${j}</option> 
+						<option value="${j * i.proPrice}" <c:if test="${i.cartAmount eq j }">selected</c:if>>${j}</option> 
 					</c:forEach>
 					</select>
 				</td>
