@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService{
 		
 	}*/
 	@Override
-	public List<ShopProcomVO> selectProCom(){
-		return productMapper.selectProcom();
+	public List<ShopProcomVO> selectProCom(int proNo){
+		return productMapper.selectProcom(proNo);
 	}
 }

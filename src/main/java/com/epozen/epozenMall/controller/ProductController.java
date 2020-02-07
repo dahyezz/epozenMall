@@ -22,6 +22,7 @@ import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
+import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 
 @Controller
@@ -78,16 +79,15 @@ public class ProductController {
 		return "/order/order";
 		
 	}
-	//	String userId = user.getUserId();
+
 	// 상품평
 	@GetMapping("/deprocom")
-	public ModelAndView procom(ModelAndView mav) {
+	public String procom(Model model,@RequestParam int proNo) {
 		
-		List<ShopProcomVO> procomList = productService.selectProCom();
+		List<ShopProcomVO> procomList = productService.selectProCom(proNo);
+		model.addAttribute("procomList", procomList);
 		
-		mav.addObject("procomList", procomList);
-		mav.setViewName("/product/deprocom");
-		return mav;
+		return "/product/deprocom";
 	}
 }
 
