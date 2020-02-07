@@ -5,9 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
-
 <c:import url="/WEB-INF/views/main.jsp" />
+
+<script type="text/javascript">
+function chatting(){
+	window.open("/chat","실시간 채팅","width=400, height=600, right="+200+", top="+230+", resizable=no")
+}
+</script>
 
 <style type="text/css">
 .content {
@@ -156,7 +160,7 @@
 	</div>
 
 	<div class="chat">
-		<a href="chat"><img src="/image/chat.PNG" /></a>
+		<a href="javascript:void(0)" onclick="chatting();"><img src="/image/chat.PNG" /></a>
 	</div>
 </div>
 </body>
