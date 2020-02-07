@@ -30,7 +30,7 @@ public class CartController {
 		mav.addObject("cartList", cartList);
 		mav.setViewName("/cart/cart");
 		return mav;
-	} 
+	}  
 	
 	//장바구니 삭제
 	@ResponseBody

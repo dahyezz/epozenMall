@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,9 +22,7 @@ import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
-import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
-import com.epozen.epozenMall.vo.ShopUserVO;
 
 @Controller
 public class ProductController {
@@ -32,7 +31,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@GetMapping("/list")
 	public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue="1") int curPage, Map<String, Object> map) {
 		
 		map.put("curPage", curPage);
