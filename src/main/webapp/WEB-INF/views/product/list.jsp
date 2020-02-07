@@ -156,7 +156,7 @@
 	</div>
 
 	<div class="chat">
-		<a href="/ "><img src="/image/chat.PNG" /></a>
+		<a href="chat"><img src="/image/chat.PNG" /></a>
 	</div>
 </div>
 </body>
