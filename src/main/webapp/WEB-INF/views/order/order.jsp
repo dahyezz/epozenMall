@@ -36,19 +36,20 @@
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="userName"></td>
+				<td><input type="text" name="userName" id="userName"></td>
+				
 			</tr>	
 			<tr>
 				<td>배송지</td>
-				<td><input type="text" name="userAdd"></td>
+				<td><input type="text" name="userAdd" id="userAdd"> </td>
 			</tr>
 			<tr>
 				<td>휴대폰 번호</td>
-				<td><input type="text" name="userPhone"></td>
+				<td><input type="text" name="userPhone" id="userPhone"></td>
 			</tr>	
 			<tr>
 				<td>배송 요청 사항</td>
-				<td><input type="text" name="userRequest"></td>
+				<td><input type="text" name="userRequest" id="userRequest"></td>
 			</tr>
 					<tr>
 				<td>총 합계 : </td>
@@ -60,7 +61,7 @@
 			</tr>
 			<tr>
 				<td>총 결제 금액</td>
-				<td></td>
+				<td> <input type="hidden" name="orderPrice" id="orderPrice" value="${detail.orderPrice}"></td>
 			</tr>
 			<tr>
 				<td>결제 방법</td>
