@@ -16,13 +16,23 @@ public interface ProductMapper {
 	//상품 목록 페이지 총 상품 수
 	int selectCntAll();
 	
+	
 	//상품 상세 페이지
 	ShopProductVO selectProDetail(int proNo);
 	
 	//장바구니 담기
 	void insertInCart(ShopCartVO vO);
 	
+	//구매
 	void insertOrder(ShopOrderVO shopOrderVO);
 
-	// List<ShopProcomVO> selectProcom();
+	//상품평
+	List<ShopProcomVO> selectProcom();
+	
+	//상품평 총 갯수
+	int selectProcomCnt();
+
+	/*void updateCart(ShopCartVO vO);
+
+	int countCart(int proNo);*/
 }

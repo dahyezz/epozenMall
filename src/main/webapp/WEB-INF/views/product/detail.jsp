@@ -10,38 +10,50 @@
 
 <c:import url="/WEB-INF/views/main.jsp" />
 
+<style>
+.div>table{
+	width:700px;
+	margin-left:250px;
+}
+
+.tabA{
+	hegint:20px;
+	width:100px;
+}
+</style>
+
 <div class="container">
 
-	  <div class="form-group">
+	<div class="div">
 	  <table id="table">
 	  	<tr>
-	  		<td>
-	  		<img id="thumbnail" src="/image/default.png" width="300px" height="300px"> </td>
-	  		<td align="center">
+	  		<td rowspan="5">
+	  		<img id="thumbnail" src="/image/default.png" width="250px" height="200px" > </td>
 	  	</tr>	
+	  	
 	  	<tr>
-	  		<td >상품명 </td>
-	  		<td >${detail.proName}</td>
+	  		<td class="tabA" >상품명 </td>
+	  		<td class="tabB">${detail.proName}</td>
 		</tr>	  
 		<tr>
-			<td colspan="2">가격</td>
-	  		<td colspan="3">${detail.proPrice}</td>
+			<td class="tabA" >가격</td>
+	  		<td class="tabB">${detail.proPrice}</td>
 		</tr>
+		
 		<tr>
-			<td colspan="2">
-			<form name="incart" method="post" action="${path}/incart">
-				<input type="hidden" name="proNo" value="${VO.proNo}">
+		<form name="incart" method="post" action="/incart">
+		<td>
+			<input type="hidden" name="proNo" id="proNo" value="${detail.proNo}">
 				<select name="amount">
 					<c:forEach begin="1" end="5" var="i">
 						<option value="${i}">${i}</option> 
 					</c:forEach>
 				</select>
-				&nbsp;개<input type="submit" value="장바구니 담기">
-		  	</form>
-		  	</td>
-		  	<td> <button type="submit" class="btn btn">바로 구매</button> </td>  		
-			
-		</tr>
+				&nbsp;개</td>
+		<td> <input type="submit" id="btnIncart"  value="장바구니 담기"> </td>
+	  	<td> <button type="button" id="btnBuy">바로 구매</button> </td>  		
+	  </form>	
+	</tr>
 		
 	  </table>
 	  	
@@ -58,6 +70,8 @@
 	<!-- Tab panes -->
 	<div class="tab-content">
 	  	<div role="tabpanel" class="tab-pane active" id="tab1">
+		  	<p>${detail.proDetail}</p>
+		  	
 		  	<p>상품 상세 입니다
 		  	네이버쇼핑과 쇼핑몰에서 제공하는 상품정보와 가격은 일치하지 않을 수 있습니다.
 
@@ -78,28 +92,55 @@
 			쇼핑몰을 통한 상품 구매 시, 구매안전 서비스(에스크로, 소비자피해보상보험, 일반 보증 등)를 이용하지
 			않고 결제하는 경우, 고객에게 상품 미배송 등으로 인한 피해가 발생할 수 있습니다.
 			
-			고객께서는 상품 구매 전, 해당 쇼핑몰의 구매안전 서비스 절차를 반드시 확인해 주시기 바랍니다.네이버쇼핑과 쇼핑몰에서 제공하는 상품정보와 가격은 일치하지 않을 수 있습니다.
-			
+			고객께서는 상품 구매 전, 해당 쇼핑몰의 구매안전 서비스 절차를 반드시 확인해 주시기 바랍니다.네이버쇼핑과 쇼핑몰에서 제공하는 상품정보와 가격은 일치하지 않을 수 있습니다.		
 			</p> 
 		</div>
-		<div role="tabpanel" class="tab-pane" id="tab2">
-			<p>상품평 입니다.상품평 입니다.상품평 입니다.상품평 입니다.상품평 입니다.
-			상품평 입니다.상품평 입니다.상품평 입니다.상품평 입니다.상품평 입니다.</p>
+		<div  class="tab-pane active" id="tab2">
+		<%@ include file="./deprocom.jsp" %>
 		</div>
-		<div role="tabpanel" class="tab-pane" id="tab3">
-			<p>댓글</p>
+		<div  class="tab-pane active" id="tab3">
+		<%@ include file="./comment.jsp" %>
+		
 		</div>
 	</div>
 </div>
 </div>
 
-<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="/SRC2/sctab/jquery.scrolling-tabs.js"></script>
-
-
 <script>
-	$('.nav-tabs').scrollingTabs();
+$(document).ready(function(){
+	var names = map.get().join(",");
+
+	$.ajax({
+		url: "/incart"
+		, type: "post"
+		, dataType: "html"
+		, data : {"names": names}
+		, success : function() {
+			// 넣기 후 메세지
+			if(confirm("장바구니로 이동하시겠습니까?") == true){
+				location.href="/cart";
+			}
+		}
+		, error : function() {
+			console.log("error")
+		}
+	})
+});
+
+
+
+ $('#btnIncart').click(function(){
+	var form = document.getElementById("incart");
+	form.submit();
+
+	/* /* if(confirm("장바구니로 이동하시겠습니까?") == true){
+		location.href="/cart"
+	}  */
+ }); 
+
+$('#btnBuy').click(function() {
+	location.href="/order"
+});
 </script>
 		
 

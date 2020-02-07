@@ -8,6 +8,7 @@ import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
+import com.epozen.epozenMall.vo.ShopUserVO;
 
 public interface ProductService {
 
@@ -26,11 +27,25 @@ public interface ProductService {
 	@return detail
 	*/
 	ShopProductVO selectProDetail(int proNo);
-
-	void insertInCart(ShopCartVO VO);
-
-	void insertOrder(ShopOrderVO shopOrderVO);
-/*	List<ShopProcomVO> selectProCom();*/
 	
+	/**
+	 * 장바구니 담기
+	@return detail
+	*/
+	void insertInCart(ShopCartVO VO);
+	/*void updateCart(ShopCartVO VO);
+	int countCart(int proNo);*/
+	/**
+	 * 구매하기
+	*/
+	void insertOrder(ShopOrderVO shopOrderVO);
+
+	/**
+	 * 상품평 조회
+	*/
+	List<ShopProcomVO> selectProCom();
+
+	//ShopUserVO selectUser(String userId);
+
 
 }

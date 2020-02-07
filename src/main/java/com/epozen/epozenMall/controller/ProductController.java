@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import com.epozen.epozenMall.vo.ShopUserVO;
 @Controller
 public class ProductController {
 	
+	private static final String String = null;
 	@Autowired
 	ProductService productService;
 	
@@ -55,39 +57,38 @@ public class ProductController {
 	}
 	
 	//장바구니 담기
-	@GetMapping("/incart")
-	public String cartIn(@ModelAttribute ShopCartVO VO, HttpSession session) {
+	@PostMapping("/incart")
+	public String cartIn( ShopCartVO VO, HttpSession session) {
 		
-		//로그인 여부를 체크하기 위해 세션에 저장된 아이디 확인
-		String userId = (String)session.getAttribute("userId");
-		if(userId==null) {
-			//로그인 하지 않은 상태이면 로그인 화면으로 이동
-			return "redirect:/login";
-		}
-		VO.setUserId(userId);
+		VO.setUserId(session.getAttribute("userId").toString());
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
-		return "redirect:/"; //하고 어디로 이동 ??
+
+		return "redirect:/prodetail"; 
 	}
 	
 	@GetMapping("/order")
-	public String orderProduct( ShopOrderVO shopOrderVO) {
+	public String orderProduct(ShopOrderVO shopOrderVO, HttpSession session) {
+		
+		String userId = (String)session.getAttribute("userId");
+		
+		//ShopUserVO user = productService.selectUser(ShopUserVO);
+		shopOrderVO.setUserId(userId);
 		
 		productService.insertOrder(shopOrderVO);
 		
 		return "/order/order";
 		
 	}
-	//	ShopUserVO user = (ShopUserVO)session.getAttribute("user");
 	//	String userId = user.getUserId();
 	// 상품평
-	/*@GetMapping("/prodetail")
+	@GetMapping("/deprocom")
 	public ModelAndView procom(ModelAndView mav) {
 		
 		List<ShopProcomVO> procomList = productService.selectProCom();
 		
 		mav.addObject("procomList", procomList);
-		mav.setViewName("/product/detail");
+		mav.setViewName("/product/deprocom");
 		return mav;
-	}*/
+	}
 }
 

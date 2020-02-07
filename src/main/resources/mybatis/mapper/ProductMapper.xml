@@ -8,7 +8,6 @@
 		SELECT COUNT(*)
 		FROM shop_product
 	</select>
-	
 	<!-- 상품 목록 페이지 -->
 	<select id="selectAll"  parameterType="com.epozen.epozenMall.util.Paging" resultType="com.epozen.epozenMall.vo.ShopProductVO">
 <!-- 		SELECT pro_no proNo, pro_cate proCate, pro_name proName, pro_price proPrice, pro_detail proDetail, img_no imgNo -->
@@ -40,15 +39,39 @@
 			pro_no = #{proNo}		
 	</select>
 	
+	<!-- 상품평 갯수 -->
+	<select id="selectProcomCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM SHOP_PROCOM
+	</select>
+	
+	<!-- 상품평 -->
+	<select id="selectProCom" resultType="com.epozen.epozenMall.vo.ShopProcomVO">
+		SELECT 
+			A.procom_no procomNO,
+			B.user_Id userId,
+			C.pro_no proNO,
+			A.procom_contents procomContents,
+			A.procom_regdate procomRegdate
+		FROM
+			SHOP_PROCOM  A, SHOP_USER  B, SHOP_PRODUCT C
+		WHERE
+			A.user_id = B.user_id
+		AND 
+			A.pro_no = C.pro_no
+		AND 
+			A.pro_no = #{proNo}
+		
+	</select>
+	
 	<!-- 장바구니 담기 -->
-	<insert id="insertInCart">
+	<insert id="insertInCart" parameterType="com.epozen.epozenMall.vo.ShopCartVO">
 		INSERT INTO SHOP_CART(
 			cart_no cartNo,
 			user_id userId,
 			pro_no proNo,
 			cart_amount cartAmount,
 			cart_Price cartPrice
-		
 		)
 		VALUES (
 			seq_cartNo.nextval,
@@ -56,9 +79,17 @@
 			#{proNo},
 			#{cartAmount},
 			#{cartPrice}
-			 
 		)
 	</insert>
+	
+	<!-- <update id="updateCart">
+		UPDATE 
+	
+	</update>
+	<select id="countCart">
+
+	
+	</select> -->
 	
 	<insert id="insertOrder" parameterType="com.epozen.epozenMall.vo.ShopUserVO">
 		INSERT INTO SHOP_ORDER (
@@ -71,7 +102,7 @@
 		VALUES (
 			#{orderNo},
 			#{userId},
-			#{orderDate},
+			TO_DATE(SYSDATE,'yyyy/MM/dd'),
 			#{orderState},
 			#{orderPrice}
 		)
