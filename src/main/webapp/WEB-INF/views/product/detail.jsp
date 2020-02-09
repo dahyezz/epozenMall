@@ -62,7 +62,7 @@
      <div>
 		<ul class="nav nav-tabs" role="tablist">
 		  <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">상품 상세</a></li>
-		  <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">상품 평</a></li>
+		  <li role="presentation"><a href="" role="tab" data-toggle="tab">상품 평</a></li>
 		  <li role="presentation"><a href="#tab3" role="tab" data-toggle="tab">댓글</a></li>
 		</ul>
  	</div>
@@ -108,13 +108,13 @@
 
 <script>
 $(document).ready(function(){
-	var names = map.get().join(",");
+
 
 	$.ajax({
 		url: "/incart"
 		, type: "post"
 		, dataType: "html"
-		, data : {"names": names}
+		, data : {}
 		, success : function() {
 			// 넣기 후 메세지
 			if(confirm("장바구니로 이동하시겠습니까?") == true){

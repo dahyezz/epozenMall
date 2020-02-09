@@ -43,7 +43,8 @@ public interface ProductService {
 	/**
 	 * 상품평 조회
 	*/
-	List<ShopProcomVO> selectProCom();
+
+	List<ShopProcomVO> selectProCom(int proNo);
 
 	//ShopUserVO selectUser(String userId);
 

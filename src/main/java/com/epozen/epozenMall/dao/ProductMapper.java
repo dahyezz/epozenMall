@@ -27,7 +27,7 @@ public interface ProductMapper {
 	void insertOrder(ShopOrderVO shopOrderVO);
 
 	//상품평
-	List<ShopProcomVO> selectProcom();
+	List<ShopProcomVO> selectProcom(int proNo);
 	
 	//상품평 총 갯수
 	int selectProcomCnt();
