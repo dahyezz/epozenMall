@@ -35,12 +35,14 @@ $(document).ready(function() {
 	height: 350px;
 	margin-bottom: 50px
 }
-.siteName>p {
+.siteName>a {
 	margin: 0;
 	font-size: 50px;
 	font-weight: 600;
 	display: inline-block;
 	margin-top: 130px;
+	text-decoration: none !important;
+	color: black;
 }
 
 .login {
@@ -52,7 +54,7 @@ $(document).ready(function() {
 <body>
 
 <div class="siteName">
-	<p>EPOZEN mall</p>
+	<a href="/list">EPOZEN mall</a>
 </div>
 
 <div class="login">

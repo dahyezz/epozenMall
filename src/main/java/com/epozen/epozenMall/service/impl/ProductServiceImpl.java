@@ -25,10 +25,9 @@ public class ProductServiceImpl implements ProductService{
 	public Paging getCurPage(Map<String, Object> map) {
 		int totalCount = productMapper.selectCntAll();
 		int curPage = Integer.parseInt(map.get("curPage").toString());
-		int procomTotal = productMapper.selectProcomCnt();
 		
 		int listCount = 10;
-		Paging paging = new Paging(totalCount, curPage, listCount, procomTotal);
+		Paging paging = new Paging(totalCount, curPage, listCount);
 		
 		return paging;
 	}
@@ -58,8 +57,25 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
-	public List<ShopProcomVO> selectProCom(int proNo){
-		return productMapper.selectProcom(proNo);
+	public List<ShopProcomVO> selectProCom(Paging paging){
+		return productMapper.selectProcom(paging);
+	}
+
+	@Override
+	public Paging getProcomCurPage(Map<String, Object> map) {
+		
+		int curPage = Integer.parseInt(map.get("curPage").toString());
+		int proNo = Integer.parseInt(map.get("proNo").toString());
+		int totalCount = productMapper.selectProcomCnt(proNo);
+		int listCount = 10;
+		
+		Paging paging = new Paging(totalCount, curPage, listCount, proNo);
+		
+		return paging;
+	}
+	@Override
+	public int getProcomCnt(int proNo) {
+		return productMapper.selectProcomCnt(proNo);
 	}
 	
 	@Override

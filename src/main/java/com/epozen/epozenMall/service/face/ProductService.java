@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
+import com.epozen.epozenMall.vo.ShopCommentVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
@@ -43,7 +44,18 @@ public interface ProductService {
 	 * 상품평 조회
 	*/
 
-	List<ShopProcomVO> selectProCom(int proNo);
+	List<ShopProcomVO> selectProCom(Paging paging);
+
+	/**
+	 * 상품평 총 갯수 조회(페이징)
+	 * 
+	 * @param map
+	 * @return
+	 */
+	Paging getProcomCurPage(Map<String, Object> map);
+
+	int getProcomCnt(int proNo);
+
 
 	ShopUserVO selectUser(ShopUserVO shopUserVO);
 

@@ -13,7 +13,9 @@ public class Paging {
 	
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
-				
+	private int proNo; //상품코드
+
+
 	public Paging() {	}
 	
 	// 총 게시글 수만 입력하는 생성자
@@ -46,12 +48,12 @@ public class Paging {
 		makePaging();
 	}
 
-	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수, 페이지 수를 입력하는 생성자
-	public Paging(int totalCount, int curPage, int listCount, int pageCount) {
+	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수, 상품번호를 입력하는 생성자
+	public Paging(int totalCount, int curPage, int listCount, int proNo) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 		this.setListCount(listCount);
-		this.setPageCount(pageCount);
+		this.setProNo(proNo);
 		
 		makePaging();
 	}
@@ -89,12 +91,11 @@ public class Paging {
 		endNo = curPage*listCount;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", proNo=" + proNo + "]";
 	}
 
 	public int getCurPage() {
@@ -168,6 +169,15 @@ public class Paging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+
+	public int getProNo() {
+		return proNo;
+	}
+
+	public void setProNo(int proNo) {
+		this.proNo = proNo;
+	}
+	
 	
 
 }
