@@ -72,7 +72,7 @@
 	</insert>
 	
 	<!-- 아이디 체크 -->
-	<select id="idcheck" parameterType="String" resultType="Integer">
+	<select id="idCheck" parameterType="String" resultType="Integer">
       SELECT 
       	COUNT(*) 
       FROM 

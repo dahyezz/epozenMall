@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.epozen.epozenMall.dao.CartMapper;
 import com.epozen.epozenMall.service.face.CartService;
+import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
 import com.epozen.epozenMall.vo.UserOrderVO;
 
@@ -30,5 +31,9 @@ public class CartServiceImpl implements CartService{
 			cartMapper.deleteCartByCartNo(deleteList[i]);
 		}
 		
+	}
+	@Override
+	public void insertOrder(ShopOrderVO shopOrderVO) {
+		cartMapper.insertOrder(shopOrderVO);
 	}
 }

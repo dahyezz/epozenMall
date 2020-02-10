@@ -28,4 +28,6 @@
 			cart_no=#{cartNo }
 	</delete>
 
+	<!-- 구매하기 버튼 -->
+	
 </mapper>

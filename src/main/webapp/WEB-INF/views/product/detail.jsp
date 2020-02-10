@@ -15,11 +15,15 @@
 	hegint:20px;
 	width:100px;
 }
+.btns{
+	margin:5px;
+}
 </style>
 
 <div class="container">
 
 	<div class="div">
+	<form method="post" name="form" action="/incart">
 	  <table id="table">
 	  	<tr>
 	  		<td rowspan="5">
@@ -36,21 +40,23 @@
 		</tr>
 		
 		<tr>
-<!-- 		<form name="incart" method="post" action="/incart"> -->
-		<td>
-			<input type="hidden" name="proNo" id="proNo" value="${detail.proNo}">
-				<select name="amount">
-					<c:forEach begin="1" end="5" var="i">
-						<option value="${i}">${i}</option> 
-					</c:forEach>
-				</select>
-				&nbsp;개</td>
-		<td> <input type="submit" id="btnIncart"  value="장바구니 담기"> </td>
-	  	<td> <button type="button" id="btnBuy">바로 구매</button> </td>  		
-<!-- 	  </form>	 -->
+
+			<td>
+					<select name="amount"id="amount">
+						<c:forEach begin="1" end="5" var="i">
+							<option value="${i}">${i}</option> 
+						</c:forEach>
+					</select>
+					&nbsp;개</td>
+			<td><input type="hidden" name="proNo" id="proNo" value="${detail.proNo}"> </td>
+			<td><input type="submit" id="btnIncart" class="btns" value="장바구니 담기"> </td>
+			<td><button type="button" id="btnBuy" class="btns">바로 구매</button>  </td>
 		</tr>
-		
-	  </table>
+		</table>
+		</form>
+	
+
+	 
 	  	
      
      <!-- Nav tabs -->
@@ -90,6 +96,7 @@
 			고객께서는 상품 구매 전, 해당 쇼핑몰의 구매안전 서비스 절차를 반드시 확인해 주시기 바랍니다.네이버쇼핑과 쇼핑몰에서 제공하는 상품정보와 가격은 일치하지 않을 수 있습니다.		
 			</p> 
 		</div>
+
 		<div  class="tab" id="tab_procom">
 <%-- 		<c:import url="/WEB-INF/views/product/deprocom.jsp" /> --%>
 		</div>
@@ -102,6 +109,7 @@
 </div>
 
 <script>
+
 $(document).ready(function(){
 
 	select('detail');	
@@ -203,14 +211,10 @@ $(document).ready(function(){
 	
 });
 
- $('#btnIncart').click(function(){
-	var form = document.getElementById("incart");
-	form.submit();
 
-	/* /* if(confirm("장바구니로 이동하시겠습니까?") == true){
-		location.href="/cart"
-	}  */
- }); 
+ $('#btnIncart').click(function(){
+	 document.form.submit();
+ });  
 
 $('#btnBuy').click(function() {
 	location.href="/order"

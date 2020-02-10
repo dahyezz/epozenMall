@@ -46,6 +46,6 @@ public interface UserService {
 
 	void register(ShopUserVO shopUserVO);
 
-	int idcheck(String userid);
+	int idCheck(ShopUserVO shopUserVO);
 
 }

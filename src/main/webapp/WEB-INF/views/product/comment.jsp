@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -59,6 +61,7 @@ recomment_div>a{
 	background-color: #ccc;
 	padding: 10px;
 }
+
 .writeCmt {
 	padding: 10px;
 	text-align: center;
@@ -83,6 +86,7 @@ recomment_div>a{
 				<c:if test="${c.comDepth eq 0 && login }"><a href="javascript:void(0)" class="recomment">답글작성</a></c:if>
 			</div>
 
+
 			<div class="comment-content">
 				<span class="cell col2 contents">${c.comContents }</span>
 			</div>
@@ -91,6 +95,7 @@ recomment_div>a{
 		</div>
 	</c:forEach>
 </div>
+
 
 <div class="text-center">
 	<ul class="pagination pagination-sm">
@@ -101,6 +106,7 @@ recomment_div>a{
 				<span>&lt;</span>
 			</li>
 			</c:if>
+
 	
 			<c:if test="${paging.curPage ne 1 }">
 				<c:if test="${paging.curPage >= 1 && paging.curPage <=5 }">

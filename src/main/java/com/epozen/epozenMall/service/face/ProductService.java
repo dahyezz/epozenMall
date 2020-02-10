@@ -34,8 +34,7 @@ public interface ProductService {
 	@return detail
 	*/
 	void insertInCart(ShopCartVO VO);
-	/*void updateCart(ShopCartVO VO);
-	int countCart(int proNo);*/
+	
 	/**
 	 * 구매하기
 	*/
@@ -58,7 +57,9 @@ public interface ProductService {
 	int getProcomCnt(int proNo);
 
 
-	//ShopUserVO selectUser(String userId);
+	ShopUserVO selectUser(ShopUserVO shopUserVO);
+
+
 
 
 }

@@ -74,11 +74,11 @@
 	<!-- 장바구니 담기 -->
 	<insert id="insertInCart" parameterType="com.epozen.epozenMall.vo.ShopCartVO">
 		INSERT INTO SHOP_CART(
-			cart_no cartNo,
-			user_id userId,
-			pro_no proNo,
-			cart_amount cartAmount,
-			cart_Price cartPrice
+			cart_no,
+			user_id,
+			pro_no,
+			cart_amount,
+			cart_Price 
 		)
 		VALUES (
 			seq_cartNo.nextval,
@@ -89,22 +89,14 @@
 		)
 	</insert>
 	
-	<!-- <update id="updateCart">
-		UPDATE 
-	
-	</update>
-	<select id="countCart">
-
-	
-	</select> -->
-	
-	<insert id="insertOrder" parameterType="com.epozen.epozenMall.vo.ShopUserVO">
+	<!-- 구매하기 -->
+	<insert id="insertOrder" parameterType="com.epozen.epozenMall.vo.ShopOrderVO" >
 		INSERT INTO SHOP_ORDER (
-			order_no orderNo,
-			user_id userId,
-			order_date orderDate,
-			order_state orderState,
-			order_price orderPrice
+			order_no ,
+			user_id ,
+			order_date ,
+			order_state ,
+			order_price 
 		)	
 		VALUES (
 			#{orderNo},
@@ -114,5 +106,18 @@
 			#{orderPrice}
 		)
 	</insert>
+	
+	<select id="selectUser" resultType="com.epozen.epozenMall.vo.ShopUserVO" parameterType="com.epozen.epozenMall.vo.ShopUserVO">
+		SELECT 
+			user_id userId,
+			user_name userName,
+			user_phone userPhone,
+			user_add userAdd
+		FROM
+			shop_user
+		WHERE 
+		  user_id = #{userId}	
+	</select>
+
 
 </mapper>
