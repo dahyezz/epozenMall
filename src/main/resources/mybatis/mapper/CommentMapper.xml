@@ -1,47 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 마이바티스 3 Mapper DOCTYPE -->
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.epozen.web.dao.face.CommentDao">
+<mapper namespace="com.epozen.epozenMall.dao.CommentMapper">
 
-<insert id="insertComment">
-	INSERT INTO SHOP_COMMENT(
-		com_no comNo,
-		user_id userId,
-		pro_no proNo,
-		com_contents comContents,
-		com_regdate comRegdate,
-		com_depth comDepth,
-		com_seq comSeq
-	) VALUES (
-		SHOP_COMMENT_SEQ.nextval,
-		#{userId},
-		#{proNo},
-		#{comContents},
-		TO_DATE(SYSDATE,'yyyy/MM/dd'),
-		#{comDepth},
-		#{comSeq}
-	)
-	
-</insert>
+	<insert id="insertComment">
+		INSERT INTO SHOP_COMMENT(
+			com_no,
+			user_id,
+			pro_no,
+			com_contents,
+			com_regdate,
+			com_depth,
+			com_seq
+		) VALUES (
+			SHOP_COMMENT_SEQ.nextval,
+			#{userId},
+			#{proNo},
+			#{comContents},
+			TO_DATE(SYSDATE,'yyyy/MM/dd'),
+			#{comDepth},
+			#{comSeq}
+		)
+		
+	</insert>
 
-<select id="selectComments">
-	SELECT 
-		A.com_no comNo,
-		B.user_id userId,
-		C.pro_no proNo,
-		A.com_contents comContents,
-		A.com_regdate comRegdate,
-		A.com_depth comDepth,
-		A.com_seq comSeq
-	FROM
-		SHOP_COMMENT A, SHOP_USER B, SHOP_PRODUCT C
-	WHERE
-		A.user_id = B.user_id
-	AND 
-		A.pro_no = C.pro_no
-	AND
-		A.pro_no = #{proNo}	
-</select>
+	<select id="selectComments"  parameterType="com.epozen.epozenMall.util.Paging" resultType="com.epozen.epozenMall.vo.ShopCommentVO">
+		SELECT * 
+		FROM (
+		    SELECT rownum rnum, T.*
+		    FROM (
+		        SELECT 
+		                A.com_no comNo,
+		                B.user_id userId,
+		                C.pro_no proNo,
+		                A.com_contents comContents,
+		                A.com_regdate comRegdate,
+		                A.com_depth comDepth,
+		                A.com_seq comSeq
+		            FROM
+		                SHOP_COMMENT A, SHOP_USER B, SHOP_PRODUCT C
+		            WHERE
+		                A.user_id = B.user_id
+		            AND 
+		                A.pro_no = C.pro_no
+		            AND
+		                A.pro_no = #{proNo }
+		            START WITH com_depth=0
+		            connect by prior com_no=com_depth
+		        ) T
+		    )
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+
+	<select id="selectCntAllComment" parameterType="int" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM 
+			shop_comment
+		WHERE 
+			pro_no=#{proNo}
+	</select>
 
 
 </mapper>

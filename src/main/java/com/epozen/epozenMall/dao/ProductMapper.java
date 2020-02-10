@@ -27,10 +27,10 @@ public interface ProductMapper {
 	void insertOrder(ShopOrderVO shopOrderVO);
 
 	//상품평
-	List<ShopProcomVO> selectProcom(int proNo);
+	List<ShopProcomVO> selectProcom(Paging paging);
 	
 	//상품평 총 갯수
-	int selectProcomCnt();
+	int selectProcomCnt(int proNo);
 
 	/*void updateCart(ShopCartVO vO);
 

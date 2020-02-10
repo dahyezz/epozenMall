@@ -3,11 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!-- Bootstrap 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" >
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <c:import url="/WEB-INF/views/main.jsp" />
 
 <style>
@@ -41,7 +36,7 @@
 		</tr>
 		
 		<tr>
-		<form name="incart" method="post" action="/incart">
+<!-- 		<form name="incart" method="post" action="/incart"> -->
 		<td>
 			<input type="hidden" name="proNo" id="proNo" value="${detail.proNo}">
 				<select name="amount">
@@ -52,8 +47,8 @@
 				&nbsp;개</td>
 		<td> <input type="submit" id="btnIncart"  value="장바구니 담기"> </td>
 	  	<td> <button type="button" id="btnBuy">바로 구매</button> </td>  		
-	  </form>	
-	</tr>
+<!-- 	  </form>	 -->
+		</tr>
 		
 	  </table>
 	  	
@@ -61,15 +56,15 @@
      <!-- Nav tabs -->
      <div>
 		<ul class="nav nav-tabs" role="tablist">
-		  <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">상품 상세</a></li>
-		  <li role="presentation"><a href="" role="tab" data-toggle="tab">상품 평</a></li>
-		  <li role="presentation"><a href="#tab3" role="tab" data-toggle="tab">댓글</a></li>
+		  <li role="presentation"><a href="javavscript:void(0)" onclick="select('detail')" >상품 상세</a></li>
+		  <li role="presentation"><a href="javascript:void(0)" onclick="select('procom')">상품 평</a></li>
+		  <li role="presentation"><a href="javascript:void(0)" onclick="select('comment')">댓글</a></li>
 		</ul>
  	</div>
  
 	<!-- Tab panes -->
 	<div class="tab-content">
-	  	<div role="tabpanel" class="tab-pane active" id="tab1">
+	  	<div class="tab" id="tab_detail">
 		  	<p>${detail.proDetail}</p>
 		  	
 		  	<p>상품 상세 입니다
@@ -95,13 +90,13 @@
 			고객께서는 상품 구매 전, 해당 쇼핑몰의 구매안전 서비스 절차를 반드시 확인해 주시기 바랍니다.네이버쇼핑과 쇼핑몰에서 제공하는 상품정보와 가격은 일치하지 않을 수 있습니다.		
 			</p> 
 		</div>
-		<div  class="tab-pane active" id="tab2">
-		<%@ include file="./deprocom.jsp" %>
+		<div  class="tab" id="tab_procom">
+<%-- 		<c:import url="/WEB-INF/views/product/deprocom.jsp" /> --%>
 		</div>
-		<div  class="tab-pane active" id="tab3">
-		<%@ include file="./comment.jsp" %>
+		<div  class="tab" id="tab_comment">
+<%-- 		<%@ include file="./comment.jsp" %> --%>
+		</div>
 		
-		</div>
 	</div>
 </div>
 </div>
@@ -109,25 +104,104 @@
 <script>
 $(document).ready(function(){
 
+	select('detail');	
 
-	$.ajax({
-		url: "/incart"
-		, type: "post"
-		, dataType: "html"
-		, data : {}
-		, success : function() {
-			// 넣기 후 메세지
-			if(confirm("장바구니로 이동하시겠습니까?") == true){
-				location.href="/cart";
+// 	$.ajax({
+// 		url: "/incart"
+// 		, type: "post"
+// 		, dataType: "html"
+// 		, data : {}
+// 		, success : function() {
+// 			// 넣기 후 메세지
+// 			if(confirm("장바구니로 이동하시겠습니까?") == true){
+// 				location.href="/cart";
+// 			}
+// 		}
+// 		, error : function() {
+// 			console.log("error")
+// 		}
+// 	})
+
+	/* 댓글 작성 */
+	$(document).on('click', '#cmtWrite', function(){
+		
+		if(!"${login }"){
+			alert("로그인이 필요합니다.")
+			location.href="/login";
+			return;
+		}
+	
+		var userId = "${userId }";
+		var proNo = "${detail.proNo }";
+		var comContents = $('#commentcontent').val();
+		
+		$.ajax({
+			url: "/comment"
+			, type: "post"
+			, data: {
+				"userId" : userId,
+				"proNo" : proNo,
+				"comContents" : comContents,
 			}
+			,success: function(){
+				select('comment');
+			}
+			, error: function() {
+				console.log("error")
+			}
+		});
+	});
+		
+
+	var commentno_re;
+	/* 대댓글 작성 폼 띄우기 */
+	$('#tab_comment').on("click", ".recomment",function(){
+		
+		$('#recommentdiv').remove();
+		if(commentno_re == $(this).parent().parent().attr("data-commentno")){
+			commentno_re = 0;
+			return false;
 		}
-		, error : function() {
-			console.log("error")
-		}
-	})
+		commentno_re = $(this).parent().parent().attr("data-commentno");
+		$(this).parent().parent().append(
+			"<div id='recommentdiv'><a href='javascript:void(0)' id='recommentBtn' >입력</a>"
+			+ "<textarea class='form-control' id='recommentcontent' rows='2' cols='30'></textarea></div>"		
+		);
+	
+	});
+	
+	/* 대댓글 작성 */
+	$('#tab_comment').on("click", "#recommentBtn", function(){
+	
+		//작성자, 상품번호, parent 댓글 번호
+		var userId = "${userId }";
+		var proNo = "${detail.proNo }";
+		var comDepth = $(this).parent().parent().attr("data-commentno");
+		
+		//댓글 내용
+		var comContents = $('#recommentcontent').val();
+		
+		//대댓글 입력 ajax
+		$.ajax({
+			url: "/comment"
+			, type: "post"
+			, data: {
+				"userId" : userId,
+				"proNo" : proNo,
+				"comContents" : comContents,
+				"comDepth" : comDepth
+			}
+			,success: function(){
+				select('comment',1);
+			}
+			, error: function() {
+				console.log("error")
+			}
+		});
+		
+	});
+	
 });
-
-
 
  $('#btnIncart').click(function(){
 	var form = document.getElementById("incart");
@@ -141,6 +215,59 @@ $(document).ready(function(){
 $('#btnBuy').click(function() {
 	location.href="/order"
 });
+
+var paging;
+
+function select(board) {
+	if(board=='detail'){
+		$('.tab').hide();
+		document.getElementById('tab_detail').style.display="block";
+	}
+	if(board=='procom'){
+		getProcomPage(1);
+	}
+	if(board=='comment'){
+		getCommentPage(1);
+	}
+}
+
+function getProcomPage(curPage){
+	$.ajax({
+		type: "get"
+		, url: "/deprocom"
+		, data: {
+			"proNo" : ${detail.proNo }, 
+			"curPage" : curPage
+		}
+		, success: function(data){
+			$('.tab').hide();
+			document.getElementById('tab_procom').style.display="block";
+			document.getElementById('tab_procom').innerHTML = data;
+		}
+		, error: function(data) {
+			console.log(data);
+		}
+	});
+}
+function getCommentPage(curPage){
+	
+	$.ajax({
+		type: "get"
+		, url: "/comment"
+		, data: {
+			"proNo" : ${detail.proNo }, 
+			"curPage" : curPage
+		}
+		, success: function(data){
+			$('.tab').hide();
+			document.getElementById('tab_comment').style.display="block";
+			document.getElementById('tab_comment').innerHTML = data;
+		}
+		, error: function(data) {
+			console.log(data);
+		}
+	});
+}
 </script>
 		
 

@@ -40,28 +40,35 @@
 	</select>
 	
 	<!-- 상품평 갯수 -->
-	<select id="selectProcomCnt" resultType="int">
+	<select id="selectProcomCnt" resultType="int" parameterType="int">
 		SELECT COUNT(*)
 		FROM SHOP_PROCOM
+		WHERE pro_no = #{proNo}
 	</select>
 	
 	<!-- 상품평 -->
-	<select id="selectProCom" resultType="com.epozen.epozenMall.vo.ShopProcomVO">
-		SELECT 
-			A.procom_no procomNO,
-			B.user_Id userId,
-			C.pro_no proNO,
-			A.procom_contents procomContents,
-			A.procom_regdate procomRegdate
-		FROM
-			SHOP_PROCOM  A, SHOP_USER  B, SHOP_PRODUCT C
-		WHERE
-			A.user_id = B.user_id
-		AND 
-			A.pro_no = C.pro_no
-		AND 
-			A.pro_no = #{proNo}
-		
+	<select id="selectProcom" resultType="com.epozen.epozenMall.vo.ShopProcomVO"  parameterType="com.epozen.epozenMall.util.Paging" >
+		SELECT * 
+		FROM (
+		    SELECT rownum rnum, T.*
+		    FROM (
+				SELECT 
+					A.procom_no procomNO,
+					B.user_Id userId,
+					C.pro_no proNO,
+					A.procom_contents procomContents,
+					A.procom_regdate procomRegdate
+				FROM
+					SHOP_PROCOM  A, SHOP_USER  B, SHOP_PRODUCT C
+				WHERE
+					A.user_id = B.user_id
+				AND 
+					A.pro_no = C.pro_no
+				AND 
+					A.pro_no = #{proNo}
+		        ) T
+		    )
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
 	<!-- 장바구니 담기 -->
