@@ -56,6 +56,6 @@ public interface UserMapper {
 
 	void insertUser(ShopUserVO shopUserVO);
 
-	int idcheck(String userId);
+	int idCheck(ShopUserVO shopUserVO);
 
 }

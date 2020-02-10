@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epozen.epozenMall.service.face.CartService;
+import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
 import com.epozen.epozenMall.vo.UserOrderVO;
 
@@ -40,5 +41,14 @@ public class CartController {
 		cartService.cartDelete(names);
 		
 	}
-	
+	// 구매하기버튼 클릭시 order db에 저장
+	@PostMapping("/inorder")
+	public String inorder(HttpSession session, ShopOrderVO shopOrderVO, ShopUserVO shopUserVO ) {
+		
+		shopUserVO.setUserId(session.getAttribute("userId").toString());
+		cartService.insertOrder(shopOrderVO);
+		
+		return " redirect:/cart";
+	}
 }
+                            

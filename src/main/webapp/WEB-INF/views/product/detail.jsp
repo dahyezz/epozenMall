@@ -3,11 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!-- Bootstrap 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" >
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <c:import url="/WEB-INF/views/main.jsp" />
 
 <style>
@@ -20,11 +15,15 @@
 	hegint:20px;
 	width:100px;
 }
+.btns{
+	margin:5px;
+}
 </style>
 
 <div class="container">
 
 	<div class="div">
+	<form method="post" name="form" action="/incart">
 	  <table id="table">
 	  	<tr>
 	  		<td rowspan="5">
@@ -41,21 +40,22 @@
 		</tr>
 		
 		<tr>
-		<form name="incart" method="post" action="/incart">
-		<td>
-			<input type="hidden" name="proNo" id="proNo" value="${detail.proNo}">
-				<select name="amount">
-					<c:forEach begin="1" end="5" var="i">
-						<option value="${i}">${i}</option> 
-					</c:forEach>
-				</select>
-				&nbsp;개</td>
-		<td> <input type="submit" id="btnIncart"  value="장바구니 담기"> </td>
-	  	<td> <button type="button" id="btnBuy">바로 구매</button> </td>  		
-	  </form>	
-	</tr>
+			<td>
+					<select name="amount"id="amount">
+						<c:forEach begin="1" end="5" var="i">
+							<option value="${i}">${i}</option> 
+						</c:forEach>
+					</select>
+					&nbsp;개</td>
+			<td><input type="hidden" name="proNo" id="proNo" value="${detail.proNo}"> </td>
+			<td><input type="submit" id="btnIncart" class="btns" value="장바구니 담기"> </td>
+			<td><button type="button" id="btnBuy" class="btns">바로 구매</button>  </td>
+		</tr>
+		</table>
+		</form>
+	
 		
-	  </table>
+	 
 	  	
      
      <!-- Nav tabs -->
@@ -96,7 +96,13 @@
 			</p> 
 		</div>
 		<div  class="tab-pane active" id="tab2">
-		<%@ include file="./deprocom.jsp" %>
+		<div>
+		<div>상품평</div>
+		<div class="row">
+			<span class="cell col1">${procomList.procomContents}</span>
+			<span class="cell col2">${procomList.userId}</span>
+		</div>
+</div>	
 		</div>
 		<div  class="tab-pane active" id="tab3">
 		<%@ include file="./comment.jsp" %>
@@ -107,36 +113,31 @@
 </div>
 
 <script>
-$(document).ready(function(){
-
-
-	$.ajax({
-		url: "/incart"
-		, type: "post"
-		, dataType: "html"
-		, data : {}
-		, success : function() {
-			// 넣기 후 메세지
-			if(confirm("장바구니로 이동하시겠습니까?") == true){
-				location.href="/cart";
-			}
-		}
-		, error : function() {
-			console.log("error")
-		}
-	})
-});
-
+/*  $('#btnIncart').click(function(){
+	 if(userLogin()){
+		alert("로그인을 해야합니다");
+	return false;
+	}else { 
+			
+	var $form = $("<form>")
+	.attr("action","/incart")
+	.attr("method", "post")
+	.append(
+		$("<input>")
+				.attr("type","hidden")
+				.attr("name", "proNo")
+				.attr("value", ${detail.proNo })
+	)
+	
+	$(document.body).append($form);
+	$form.submit();
+	
+	});  */
 
 
  $('#btnIncart').click(function(){
-	var form = document.getElementById("incart");
-	form.submit();
-
-	/* /* if(confirm("장바구니로 이동하시겠습니까?") == true){
-		location.href="/cart"
-	}  */
- }); 
+	 document.form.submit();
+ });  
 
 $('#btnBuy').click(function() {
 	location.href="/order"

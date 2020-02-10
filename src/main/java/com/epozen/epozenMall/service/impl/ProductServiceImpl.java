@@ -13,6 +13,7 @@ import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
+import com.epozen.epozenMall.vo.ShopUserVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -49,25 +50,20 @@ public class ProductServiceImpl implements ProductService{
 	public void insertInCart(ShopCartVO VO) {
 		 productMapper.insertInCart(VO);
 	}
-	/*@Override
-	public void updateCart(ShopCartVO VO) {
-		productMapper.updateCart(VO);
-	}
-	@Override
-	public int countCart(int proNo) {
-		return productMapper.countCart(proNo);
-	}*/
 	
 	@Override
+	/*구매하기*/
 	public void insertOrder(ShopOrderVO shopOrderVO) {
 		productMapper.insertOrder(shopOrderVO);
 	}
-	/*@Override
-	public ShopUserVO selectUser(String userId) {
-		
-	}*/
+	
 	@Override
 	public List<ShopProcomVO> selectProCom(int proNo){
 		return productMapper.selectProcom(proNo);
+	}
+	
+	@Override
+	public ShopUserVO selectUser(ShopUserVO shopUserVO) {
+		return productMapper.selectUser(shopUserVO);
 	}
 }

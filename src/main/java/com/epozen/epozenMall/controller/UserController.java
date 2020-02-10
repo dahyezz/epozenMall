@@ -36,21 +36,28 @@ public class UserController {
 	@PostMapping("/registerProc")
 	public String postRegister(ShopUserVO shopUserVO) {
 
-		userService.register(shopUserVO);
+		int result = userService.idCheck(shopUserVO);
+		try {
+			if(result == 1) {
+				return "/register";
+			}else if(result == 0) {
+				userService.register(shopUserVO);
+			}
+			// 요기에서~ 입력된 아이디가 존재한다면 -> 다시 회원가입 페이지로 돌아가기 
+			// 존재하지 않는다면 -> register
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+		//userService.register(shopUserVO);
 		return "redirect:/login";
 	}
 
 	// 아이디 체크
-	@RequestMapping("/idcheck")
+	@RequestMapping("/idChk")
 	@ResponseBody
-	public Map<Object, Object> idcheck(@RequestBody String userid) {
-
-		int count = 0;
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		count = userService.idcheck(userid);
-		map.put("cnt", count);
-
-		return map;
+	public int idCheck(ShopUserVO shopUserVO) {
+		int result = userService.idCheck(shopUserVO);
+		return result;
 	}
 
 	@GetMapping("/login")

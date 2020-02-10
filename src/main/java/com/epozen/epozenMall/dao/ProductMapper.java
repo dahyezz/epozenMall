@@ -7,6 +7,7 @@ import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
+import com.epozen.epozenMall.vo.ShopUserVO;
 
 public interface ProductMapper {
 	
@@ -32,7 +33,8 @@ public interface ProductMapper {
 	//상품평 총 갯수
 	int selectProcomCnt();
 
-	/*void updateCart(ShopCartVO vO);
+	ShopUserVO selectUser(ShopUserVO shopUserVO);
 
-	int countCart(int proNo);*/
+
+	
 }

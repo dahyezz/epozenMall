@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int idcheck(String userId) {
-		return userMapper.idcheck(userId);
+	public int idCheck(ShopUserVO shopUserVO) {
+		return userMapper.idCheck(shopUserVO);
 	}
 }

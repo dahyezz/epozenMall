@@ -24,6 +24,7 @@ import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
+import com.epozen.epozenMall.vo.ShopUserVO;
 
 @Controller
 public class ProductController {
@@ -51,37 +52,46 @@ public class ProductController {
 	public String proDetail(@RequestParam int proNo, Model model) {
 		
 		ShopProductVO detail = productService.selectProDetail(proNo);
-		
 		model.addAttribute("detail", detail);
 		return "/product/detail";
 	}
 	
 	//장바구니 담기
 	@PostMapping("/incart")
-	public String cartIn( ShopCartVO VO, HttpSession session) {
+	public String cartIn(ShopCartVO VO, HttpSession session) {
 		
 		VO.setUserId(session.getAttribute("userId").toString());
+		System.out.println(VO.toString());
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
 
 		return "redirect:/prodetail"; 
 	}
 	
+	//구매 페이지
 	@GetMapping("/order")
-	public String orderProduct(ShopOrderVO shopOrderVO, HttpSession session) {
+	public ModelAndView orderProduct(ShopUserVO shopUserVO,  ModelAndView mav, HttpSession session) {
 		
-		String userId = (String)session.getAttribute("userId");
+		shopUserVO.setUserId(session.getAttribute("userId").toString());
+		ShopUserVO user = productService.selectUser(shopUserVO);
 		
-		//ShopUserVO user = productService.selectUser(ShopUserVO);
-		shopOrderVO.setUserId(userId);
+		mav.addObject("user", user);
+		mav.setViewName("/order/order");
 		
+		return mav;
+		
+	} 
+	//구매 하기
+	@PostMapping("/order")
+	public String orderProductProc(ShopOrderVO shopOrderVO, HttpSession session) {
+		
+		shopOrderVO.setUserId(session.getAttribute("userId").toString());
 		productService.insertOrder(shopOrderVO);
 		
-		return "/order/order";
-		
+		return "redirect:/cart";
 	}
 
 	// 상품평
-	@GetMapping("/deprocom")
+	@GetMapping("/prodetai")
 	public String procom(Model model,@RequestParam int proNo) {
 		
 		List<ShopProcomVO> procomList = productService.selectProCom(proNo);

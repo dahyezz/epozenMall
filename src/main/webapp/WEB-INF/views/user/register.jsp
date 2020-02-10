@@ -3,10 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!-- Bootstrap 3 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" > -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" >
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <c:import url="/WEB-INF/views/main.jsp" />
 
@@ -34,12 +30,12 @@ td{
 
 <div class="containser_regi">
 	<div class="regi_div">
-		<form method="post" name="form"action="/registerProc" >
+		<form method="post" name="form" action="/registerProc" >
 		<table>
 			<tr>
 				<td class="tabAA">아이디</td>
 				<td class="tabBB"> <input type="text" name="userId" id="userId"> </td>
-				<td> <input type="button" id="userIdcheck" value="중복 확인"> </td>
+				<td> <input type="button" id="userIdcheck" value="중복 확인" onClick="fn_idChk()"> </td>
 			</tr>
 			<tr>
 				<td class="tabAA">이름</td>
@@ -73,7 +69,7 @@ td{
 			<button type="button" onclick="check()">회원가입</button>
 	    </form>
 			<button type="button" id="cancle" style="margin-left:15px;">뒤로가기</button>		
-			<!-- <input type="button" value="회원가입" onclick="check()"> -->
+		
 		</div>
 	</div>
 </div>	
@@ -81,6 +77,22 @@ td{
 
 <script>
 
+//아이디 확인
+function fn_idChk(){
+	$.ajax({url : "/idChk",
+		type : "post",
+		dataType : "json",
+		data : {"userId" : $("#userId").val()},
+	success : function(data){
+		if(data == 1){
+			alert("중복된 아이디입니다.");
+		}else if(data == 0){
+			$("#idChk").attr("value", "Y");
+		alert("사용가능한 아이디입니다.");
+		}
+	}
+	})
+}
  // 비밀 번호 확인
 $('#userPasswordCheck').focusout(function () {
     var pwd1 = $("#userPassword").val();
