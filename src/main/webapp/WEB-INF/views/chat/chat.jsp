@@ -27,6 +27,7 @@ $(document).ready(function() {
 		}
 	});
 	connect();
+	document.getElementById('chatMessage').focus();
 });
 var stompClient = null;
 
@@ -55,28 +56,10 @@ function connect() {
 	});
 }
 
-// function disconnect() {
-// 	if (stompClient !== null) {
-// 		stompClient.disconnect();
-// 	}
-// 	setConnected(false);
-// 	console.log("Disconnected");
-// }
-
-// function showGreeting(message) {
-// 	$("#greetings").append("<tr><td>" + message + "</td></tr>");
-// }
-
 $(function() {
 	$("form").on('submit', function(e) {
 		e.preventDefault();
 	});
-// 	$("#connect").click(function() {
-// 		connect();
-// 	});
-// 	$("#disconnect").click(function() {
-// 		disconnect();
-// 	});
 
 	$("#chatSend").click(function() {
 		sendChat();
@@ -97,20 +80,27 @@ function showChat(chat) {
 }
 </script>
 
+<style type="text/css">
+.col-md-6{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #ccc;
+}
+.form-control {
+	width: 80%;
+	display: inline-block;
+}
+.form-group>p {
+	font-size: 15px;
+	font-weight: 600;
+}
+</style>
+
 </head>
 <body>
 	<div id="main-content" class="container">
 		<div class="row">
-<!-- 			<div class="col-md-6"> -->
-<!-- 				<form class="form-inline"> -->
-<!-- 					<div class="form-group"> -->
-<!-- 						<label for="connect">WebSocket connection:</label> -->
-<!-- 						<button id="connect" class="btn btn-default" type="submit">Connect</button> -->
-<!-- 						<button id="disconnect" class="btn btn-default" type="submit" -->
-<!-- 							disabled="disabled">Disconnect</button> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
 			<div class="col-md-12">
 				<table id="conversation" class="table table-striped">
 					<thead>
@@ -133,8 +123,9 @@ function showChat(chat) {
 						</p>
 						<label for="message"></label> 
 						<input type="text" id="chatMessage" class="form-control" />
+						<button id="chatSend" class="btn btn-default" type="submit">전송</button>
 					</div>
-					<button id="chatSend" class="btn btn-default" type="submit">전송</button>
+					
 				</form>
 			</div>
 		</div>

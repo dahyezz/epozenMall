@@ -29,15 +29,18 @@
 	box-sizing: inherit;
 	float: right;
 }
+.contents {
+	font-size: 18px;
+}
 </style>
 
 <div class="procom-list">
 	<p>상품평 ${procomCnt }개</p>
 	<c:forEach items="${procomList}" var="procom">
 	<div class="row">
-		<span class="cell col1">${procom.procomContents}</span>
+		<span class="cell col1 contents">${procom.procomContents}</span>
 		<div class="procom-writer-info">
-			<span class="cell col2">${procom.userId}</span><br>
+			<span class="cell col2 userId">${procom.userId}</span><br>
 			<span class="cell col2"><fmt:formatDate value="${procom.procomRegdate }" pattern="yyyy.MM.dd"/> </span>
 		</div>
 		<hr class="deprocom_hr">

@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService{
 		int curPage = Integer.parseInt(map.get("curPage").toString());
 		int proNo = Integer.parseInt(map.get("proNo").toString());
 		int totalCount = productMapper.selectProcomCnt(proNo);
-		int listCount = 10;
+		int listCount = 5;
 		
 		Paging paging = new Paging(totalCount, curPage, listCount, proNo);
 		

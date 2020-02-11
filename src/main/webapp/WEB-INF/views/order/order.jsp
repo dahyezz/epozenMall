@@ -62,15 +62,15 @@ td{
 			</tr>
 					<tr>
 				<td>총 합계 : </td>
-				<td></td>
+				<td>${total }</td>
 			</tr>
 			<tr>
 				<td>배송비</td>
-				<td></td>
+				<td>${deliveryCost }</td>
 			</tr>
 			<tr>
 				<td>총 결제 금액</td>
-				<td> <input type="hidden" name="orderPrice" id="orderPrice" ></td>
+				<td>${total+deliveryCost } <input type="hidden" name="orderPrice" id="orderPrice" ></td>
 			</tr>
 			<tr>
 				<td>결제 방법</td>
