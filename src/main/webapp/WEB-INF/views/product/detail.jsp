@@ -54,21 +54,25 @@
 		</tr>	  
 		<tr>
 			<td class="tabA" >가격</td>
-	  		<td class="tabB">${detail.proPrice}</td>
+	  		<td >${detail.proPrice}</td>
 		</tr>
 		
 		<tr>
 
 			<td>
-					<select name="amount"id="amount">
+					<select name="amount"id="cartAmount" >
 						<c:forEach begin="1" end="5" var="i">
 							<option value="${i}">${i}</option> 
 						</c:forEach>
 					</select>
 					&nbsp;개</td>
 			<td><input type="hidden" name="proNo" id="proNo" value="${detail.proNo}"> </td>
-			<td><input type="submit" id="btnIncart" class="btns" value="장바구니 담기"> </td>
-			<td><button type="button" id="btnBuy" class="btns">바로 구매</button>  </td>
+			<td><input type="hidden" name="cartPrice" id="cartPrice" value="${detail.proPrice}"> </td> 
+			<td><input type="hidden" name="orderState" id="orderState" value="중비중"> </td>
+			<td><input type="hidden" name="orderNo" id="orderNo"> </td>
+			
+			<td><input type="button" id="btnIncart" class="btns" value="장바구니 담기"> </td>
+			<!-- <td><button type="button" id="btnBuy" class="btns">바로 구매</button>  </td> -->
 		</tr>
 		</table>
 		</form>
@@ -199,6 +203,7 @@ $(document).ready(function(){
 		var comDepth = $(this).parent().parent().attr("data-commentno");
 		
 		//댓글 내용
+		
 		var comContents = $('#recommentcontent').val();
 		
 		//대댓글 입력 ajax
@@ -222,16 +227,41 @@ $(document).ready(function(){
 	});
 
 });
-
-
- $('#btnIncart').click(function(){
-	 document.form.submit();
- });  
-
-$('#btnBuy').click(function() {
-	location.href="/order"
+/* 장바구니 담기 버튼 */
+$(document).on('click', '#btnIncart', function(){
+	
+	if(!"${login }"){
+		alert("로그인이 필요합니다.")
+		location.href="/login";
+		return;
+	}
+	var proNo = "${detail.proNo }";
+	var cartPrice = "${detail.proPrice}";
+	var cartAmount =  $('#cartAmount').val();
+	
+	$.ajax({
+		url: "/incart"
+		, type: "post"
+		, data: {
+			"cartPrice" : cartPrice,
+			"proNo" : proNo,
+			"cartAmount" : cartAmount
+		
+		}
+		,success: function(){
+			var re = confirm("장바구니로 이동하시겠습니까?");
+			if(re) {
+				location.href="/cart";
+			}else {
+				return;
+			}
+			
+		}
+		, error: function() {
+			console.log("error")
+		}
+	});
 });
-
 var paging;
 
 function select(board) {
@@ -284,6 +314,42 @@ function getCommentPage(curPage){
 		}
 	});
 }
+/* 구매하기 */
+$(document).on('click', '#btnBuy', function(){
+	
+	if(!"${login }"){
+		alert("로그인이 필요합니다.")
+		location.href="/login";
+		return;
+	}
+	
+	var orderPrice = "${detail.proPrice}";
+	var cartAmount =  $('#cartAmount').val();
+	var orderState = $('#orderState').val();
+
+	
+	$.ajax({
+		url: "/order"
+		, type: "post"
+		, data: {
+		
+			"proPrice" : orderPrice,
+			"cartAmount" : cartAmount,
+			"orderState" : orderState
+		}
+		,success: function(){
+			var re = confirm("구매 하시겠습니까??");
+			if(re) {
+				location.href="/order";
+			}else {
+				return;
+			}
+		}
+		, error: function() {
+			console.log("error")
+		}
+	});
+});
 </script>
 		
 

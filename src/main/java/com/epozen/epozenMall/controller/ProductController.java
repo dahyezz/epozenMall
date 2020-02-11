@@ -63,7 +63,9 @@ public class ProductController {
 		System.out.println(VO.toString());
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
 
-		return "redirect:/prodetail?proNo="+VO.getProNo(); 
+
+		return "redirect:/prodetail?proNo="+VO.getProNo();
+
 	}
 	
 	//구매 페이지

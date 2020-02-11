@@ -121,7 +121,8 @@
 	
 	<!-- 구매하기 -->
 	<insert id="insertOrder" parameterType="com.epozen.epozenMall.vo.ShopOrderVO" >
-		INSERT INTO SHOP_ORDER (
+		INSERT INTO 
+		SHOP_ORDER (
 			order_no ,
 			user_id ,
 			order_date ,
@@ -129,14 +130,35 @@
 			order_price 
 		)	
 		VALUES (
-			#{orderNo},
+			SHOP_ORDER_SEQ.nextval,
 			#{userId},
 			TO_DATE(SYSDATE,'yyyy/MM/dd'),
-			#{orderState},
+			'준비중',
 			#{orderPrice}
 		)
 	</insert>
-	
+
+	<insert id="insertOrderde" parameterType="com.epozen.epozenMall.vo.ShopOrderdeVO" >
+		INSERT INTO SHOP_ORDERDE(
+			orderde_no,
+			order_no,
+			pro_no,
+			orderde_amount,
+			orderde_price
+		)VALUES(
+			SHOP_ORDERDE_SEQ.nextval,
+			#{orderNo},
+			#{proNo},
+			#{orderdeAmount},
+			#{orderdePrice}
+		)
+	</insert>
+	<select id="selectOrderNo" resultType="int">
+	SELECT  
+		max(order_no)
+	FROM
+	SHOP_ORDER
+	</select>
 	<select id="selectUser" resultType="com.epozen.epozenMall.vo.ShopUserVO" parameterType="com.epozen.epozenMall.vo.ShopUserVO">
 		SELECT 
 			user_id userId,
