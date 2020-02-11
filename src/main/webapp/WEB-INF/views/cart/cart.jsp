@@ -21,7 +21,12 @@ $(document).ready(function() {
 	
 	/* 구매하기 버튼 동작 */
 	$('#buyBtn').click(function() {
-		location.href="/order";
+	
+		if(total >= 50000)
+			deliveryCost = 0;
+		else
+			deliveryCost = 2500;
+		location.href ="/order?proPrice="+total+"&deliveryCost="+deliveryCost;	
 	});
 	
 	/* 삭제 버튼 동작  */
@@ -166,6 +171,7 @@ function proStatus(deliveryCost, total){
 	document.getElementById("totalPrice").innerHTML = total+deliveryCost; 
 
 }
+
 </script>
 
 <style type="text/css">
@@ -227,17 +233,19 @@ function proStatus(deliveryCost, total){
 			</c:forEach>	
 
 		</table>
+		<form name="from">
 		<button id="deleteBtn">삭제</button>
 		<p>50,000원 이상 결제 시 배송비 무료</p>
 		<div class="priceContent">
 			<p>총 주문금액&nbsp;&nbsp;</p><p id="proPrice"></p><p>원 + 총 배송비</p>
 			<p id="deliveryCost"></p><p>원 = 총 주문금액&nbsp;&nbsp;</p><p id="totalPrice"></p><p>원</p>
 		</div>
+		</form>
 	</div>
 	
 	<div class="btnContent">
-		<button id="shopBtn">계속 쇼핑하기</button>
-		<button id="buyBtn">구매하기</button>
+		<button id="shopBtn">계속 쇼핑하기</button> 
+		<button id="buyBtn" onclick="click()">구매하기</button>
 	</div>
 	
 </div>

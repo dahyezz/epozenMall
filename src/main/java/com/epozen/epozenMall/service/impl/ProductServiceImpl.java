@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.epozen.epozenMall.dao.CartMapper;
 import com.epozen.epozenMall.dao.ProductMapper;
 import com.epozen.epozenMall.service.face.ProductService;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
+import com.epozen.epozenMall.vo.ShopOrderdeVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
@@ -18,7 +20,9 @@ import com.epozen.epozenMall.vo.ShopUserVO;
 @Service
 public class ProductServiceImpl implements ProductService{
 
+	private static final ShopOrderVO ShopOrderdeVO = null;
 	@Autowired ProductMapper productMapper;
+	@Autowired CartMapper cartMapper;
 	
 	@Override
 	/*상품 전체 카운트 & 페이징*/
@@ -53,7 +57,14 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	/*구매하기*/
 	public void insertOrder(ShopOrderVO shopOrderVO) {
+		ShopOrderdeVO shopOrderdeVO = new ShopOrderdeVO();
+		
 		productMapper.insertOrder(shopOrderVO);
+		
+		int orderNo = productMapper.selectOrderNo(shopOrderVO);
+		shopOrderdeVO.setOrderNo(orderNo);
+		productMapper.insertOrderde(shopOrderdeVO);
+	//	cartMapper.deleteCartByCartNo(shopOrderdeVO));
 	}
 	
 	@Override

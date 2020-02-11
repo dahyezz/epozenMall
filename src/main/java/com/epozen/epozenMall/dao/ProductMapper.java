@@ -5,6 +5,7 @@ import java.util.List;
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
 import com.epozen.epozenMall.vo.ShopOrderVO;
+import com.epozen.epozenMall.vo.ShopOrderdeVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
@@ -27,6 +28,7 @@ public interface ProductMapper {
 	//구매
 	void insertOrder(ShopOrderVO shopOrderVO);
 
+	//void inserOrderDe(ShopOrderVO orderdeVO);
 	//상품평
 	List<ShopProcomVO> selectProcom(Paging paging);
 	
@@ -34,6 +36,11 @@ public interface ProductMapper {
 	int selectProcomCnt(int proNo);
 
 	ShopUserVO selectUser(ShopUserVO shopUserVO);
+
+	int selectOrderNo(ShopOrderVO shopOrderVO);
+
+	void insertOrderde(ShopOrderdeVO shopOrderdeVO);
+
 
 
 	
