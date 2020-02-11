@@ -42,6 +42,8 @@ public interface ProductMapper {
 
 	void insertOrderde(ShopOrderdeVO shopOrderdeVO);
 
+	int selectTopOrderNo();
+
 
 
 	

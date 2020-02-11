@@ -70,13 +70,15 @@ public class ProductController {
 	
 	//구매 페이지
 	@GetMapping("/order")
-	public ModelAndView orderProduct(ShopUserVO shopUserVO,  ModelAndView mav, HttpSession session) {
+	public ModelAndView orderProduct(ShopUserVO shopUserVO,  ModelAndView mav, HttpSession session,String products, String price) {
 		
 		
 		shopUserVO.setUserId(session.getAttribute("userId").toString());
 		ShopUserVO user = productService.selectUser(shopUserVO);
 		
 		mav.addObject("user", user);
+		mav.addObject("products", products);
+		mav.addObject("price", price);
 		mav.setViewName("/order/order");
 		
 		return mav;
@@ -84,10 +86,15 @@ public class ProductController {
 	} 
 	//구매 하기
 	@PostMapping("/order")
-	public String orderProductProc(ShopOrderVO shopOrderVO, HttpSession session) {
+	public String orderProductProc(ShopOrderVO shopOrderVO, HttpSession session,String products, String price, Map<String, Object> map) {
+		
+		map.put("products", products);
+		map.put("price", price);
 		
 		shopOrderVO.setUserId(session.getAttribute("userId").toString());
+		
 		productService.insertOrder(shopOrderVO);
+		productService.buyOrderde(map);
 		
 		return "redirect:/cart";
 	}
