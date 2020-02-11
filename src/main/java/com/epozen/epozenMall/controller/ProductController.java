@@ -60,7 +60,7 @@ public class ProductController {
 	public String cartIn(ShopCartVO VO, HttpSession session) {
 		
 		VO.setUserId(session.getAttribute("userId").toString());
-		System.out.println(VO.toString());
+//		System.out.println(VO.toString());
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
 
 
