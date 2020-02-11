@@ -23,11 +23,13 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	/*상품 전체 카운트 & 페이징*/
 	public Paging getCurPage(Map<String, Object> map) {
-		int totalCount = productMapper.selectCntAll();
+		int totalCount = productMapper.selectCntAll(map);
 		int curPage = Integer.parseInt(map.get("curPage").toString());
 		
 		int listCount = 10;
 		Paging paging = new Paging(totalCount, curPage, listCount);
+		
+		paging.setListSelect((String)map.get("listSelect"));
 		
 		return paging;
 	}
@@ -35,6 +37,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	/*상품 리스트 페이지*/
 	public List<ShopProductVO> selectAllPro(Paging paging) {
+		
 		return productMapper.selectAll(paging);
 	}
 	

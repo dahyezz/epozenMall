@@ -11,6 +11,37 @@
 function chatting(){
 	window.open("/chat","실시간 채팅","width=400, height=600, right="+200+", top="+230+", resizable=no")
 }
+
+$(document).ready(function() {
+	var lisel = "${lisel }";
+
+	if(lisel.length == 0){
+		$('#listSelect').val("all").prop("selected", true);
+	}else if(lisel == 'fashion') {
+		$('#listSelect').val("fashion").prop("selected", true);
+	} else if(lisel == 'goods') {
+		$('#listSelect').val("goods").prop("selected", true);
+	} else {
+		$('#listSelect').val("cosmetic").prop("selected", true);
+	}
+		
+	
+	$('#listSelect').on('change',function(){
+		var selected = $(this).val();
+
+		var $form = $("<form>")
+						.attr("action","/list")
+						.attr("method","get")
+						.append(
+							$("<input>")
+								.attr("type","hidden")
+								.attr("name","listSelect")
+								.attr("value",selected)
+						);
+		$(document.body).append($form);
+		$form.submit();
+	})
+});
 </script>
 
 <style type="text/css">
@@ -65,7 +96,7 @@ function chatting(){
 
 <div class="content">
 
-	<select name="cate">
+	<select name="cate" id="listSelect">
 		<option value="all" selected="selected">전체</option>
 		<option value="fashion">패션의류</option>
 		<option value="goods">생활용품</option>
@@ -112,12 +143,12 @@ function chatting(){
 			<c:if test="${paging.curPage ne 1 }">
 				<c:if test="${paging.curPage >= 1 && paging.curPage <=5 }">
 				<li>
-					<a href="/list?curPage=${paging.curPage-1 }"><span>&lt;</span></a>
+					<a href="/list?curPage=${paging.curPage-1 }&listSelect=${lisel }"><span>&lt;</span></a>
 		   	 	</li>
 				</c:if>
 				<c:if test="${paging.curPage > 5 }">
 				<li>
-					<a href="/list?curPage=${paging.curPage-5 }"><span>&lt;</span></a>
+					<a href="/list?curPage=${paging.curPage-5 }&listSelect=${lisel }"><span>&lt;</span></a>
 		   	 	</li>
 				</c:if>
 		    </c:if>
@@ -130,13 +161,23 @@ function chatting(){
 				<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 				<c:if test="${paging.curPage eq i}">
 				<li class="active">
-					<a href="/list?curPage=${i }">${i }</a>
+					<c:if test="${lisel eq null }">
+						<a href="/list?curPage=${i }">${i }</a>
+					</c:if>
+					<c:if test="${lisel ne null }">
+						<a href="/list?curPage=${i }&listSelect=${lisel }">${i }</a>
+					</c:if>
 				</li>
 				</c:if>	
 				
 				<c:if test="${paging.curPage ne i}">
 				<li>
-					<a href="/list?curPage=${i }">${i }</a>
+					<c:if test="${lisel eq null }">
+						<a href="/list?curPage=${i }">${i }</a>
+					</c:if>
+					<c:if test="${lisel ne null }">
+						<a href="/list?curPage=${i }&listSelect=${lisel }">${i }</a>
+					</c:if>
 				</li>
 				</c:if>
 						
@@ -151,7 +192,7 @@ function chatting(){
 	
 			<c:if test="${paging.curPage ne paging.totalPage }">
 			<li>
-				<a href="/list?curPage=${paging.curPage+5 }">
+				<a href="/list?curPage=${paging.curPage+5 }&listSelect=${lisel }">
 				<span>&gt;</span>
 			</a>
 			</li>

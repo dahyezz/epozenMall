@@ -1,6 +1,7 @@
 package com.epozen.epozenMall.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopCartVO;
@@ -15,7 +16,7 @@ public interface ProductMapper {
 	List<ShopProductVO> selectAll(Paging paging);
 	
 	//상품 목록 페이지 총 상품 수
-	int selectCntAll();
+	int selectCntAll(Map<String, Object> map);
 	
 	
 	//상품 상세 페이지
