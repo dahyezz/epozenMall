@@ -299,13 +299,13 @@ function proStatus(deliveryCost, total){
 			<p>총 주문금액&nbsp;&nbsp;</p><p id="proPrice"></p><p>원 + 총 배송비</p>
 			<p id="deliveryCost"></p><p>원 = 총 주문금액&nbsp;&nbsp;</p><p id="totalPrice"></p><p>원</p>
 		</div>
-		</form>
+		
 	</div>
 	
 	<div class="btnContent">
 
-		<button id="shopBtn">계속 쇼핑하기</button> 
-
+		<button class="btn" id="shopBtn">계속 쇼핑하기</button> 
+		<button class="btn btn-success" id="buyBtn">구매하기</button>
 	</div>
 	
 </div>
