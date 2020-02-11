@@ -54,7 +54,7 @@
 		    FROM (
 				SELECT 
 					A.procom_no procomNO,
-					B.user_Id userId,
+					REPLACE(B.user_Id, SUBSTR(B.user_Id, 4,5),'***') userId,
 					C.pro_no proNO,
 					A.procom_contents procomContents,
 					A.procom_regdate procomRegdate

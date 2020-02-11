@@ -17,7 +17,10 @@ $(document).ready(function() {
 	$('#exitBtn').click(function() {
 		var curPass = $('#curPass').val();
 		
-		if(curPass == userPassword){
+		if(curPass == ''){
+			alert("비밀번호를 입력해주세요");
+			document.getElementById('curPass').focus();
+		} else if(curPass == userPassword){
 			
 			//form 생성하여 post 방식 전송
 			var form = document.createElement("form");
@@ -30,6 +33,7 @@ $(document).ready(function() {
 		} else {
 			alert("비밀번호가 일치하지 않습니다");
 			document.getElementById('curPass').value="";
+			document.getElementById('curPass').focus();
 		}
 
 	});	
@@ -66,6 +70,7 @@ $(document).ready(function() {
 				
 		if(curPass == ""){
 			alert("비밀번호를 입력하세요")
+			document.getElementById('curPass').focus();
 		} else if(curPass == userPassword){
 			
 			if(newPass!=""){
@@ -160,6 +165,9 @@ li a {
 /*     background-color: #4CAF50; */
 /*     color: white; */
 /* } */
+li>a:hover {
+	text-decoration: none;
+}
 li a:hover:not(.active) {
     background-color: #555;
     color: white;
@@ -181,6 +189,9 @@ li a:hover:not(.active) {
 	font-size: 30px;
 	font-weight: 600;
 }
+.exitDiv>p {
+	display: inline-block;
+}
 .btnDiv{
 	display: inline-block;
 }
@@ -189,17 +200,28 @@ li a:hover:not(.active) {
 	float: right;
 }
 table {
+	width: 90%;
+	margin: auto auto 20px auto;
 	border-collapse: collapse;
-	margin-bottom: 20px;
 }
 th {
-	width: 30%;
+	width: 25%;
 	background-color: #ccc;
 	height: 50px;
+	text-align: center;
 }
 td {
 	width: 70%;
 	padding: 10px 10px 10px 20px;
+}
+table, th, td {
+	border: 1px solid black;
+}
+#curPass, #newPass {
+	margin-left: 100px;
+}
+#newPassCheck {
+	margin-left: 68px;
 }
 </style>
 
@@ -235,33 +257,35 @@ td {
 				</tr>
 				<tr>
 					<th rowspan="4">비밀번호변경</th>
-						<td><label for="curPass">현재 비밀번호 </label></td>
-						<td><input type="password" name="curPass" id="curPass" placeholder="현재 비밀번호" /></td>
+						<td style="border: none;"><label for="curPass">현재 비밀번호 </label>
+						<input type="password" name="curPass" id="curPass" placeholder="현재 비밀번호" /></td>
 				</tr>
 				<tr>
-					<td><label for="newPass">신규 비밀번호</label></td>
-					<td><input type="password" name="newPass" id="newPass" placeholder="새로운 비밀번호 입력" /></td>
+					<td style="border: none;"><label for="newPass">신규 비밀번호</label>
+					<input type="password" name="newPass" id="newPass" placeholder="새로운 비밀번호 입력" /></td>
 				</tr>
 				<tr>
-					<td><label for="newPassCheck">신규 비밀번호 확인</label></td>
-					<td><input type="password" name="newPassCheck" id="newPassCheck" placeholder="새로운 비밀번호 재입력" /></td>
+					<td style="border: none;"><label for="newPassCheck">신규 비밀번호 확인</label>
+					<input type="password" name="newPassCheck" id="newPassCheck" placeholder="새로운 비밀번호 재입력" /></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td><span id="check"></span></td>
+					<td style="border: none; padding: 0; height: 30px;"><span style="margin-left: 210px" id="check"></span></td>
 				</tr>
 				<tr>
 					<th>배송지</th>
 					<td><textarea rows="3" cols="50" id="add">${user.userAdd }</textarea></td>
 				</tr>
 			</table>
+		</div>
+		
+		<div class="btnGroup">
 			<div class="btnDiv">
-				<button id="modifyBtn">정보수정</button>
-				<button id="backBtn">뒤로가기</button>
+				<button class="btn" id="modifyBtn">정보수정</button>
+				<button class="btn" id="backBtn">뒤로가기</button>
 			</div>
 			<div class="exitDiv">
 				<p>탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요</p>
-				<button id="exitBtn">회원탈퇴</button>
+				<button class="btn" id="exitBtn">회원탈퇴</button>
 			</div>
 		</div>
 	

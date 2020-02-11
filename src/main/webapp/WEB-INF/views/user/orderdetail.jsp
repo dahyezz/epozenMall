@@ -8,8 +8,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#writeBtn').click(function(){
-		
+	$(document).on("click", "#writeBtn", function(){
 		var proNo = $(this).val();
 		var proName = $('#writeProName').val();
 		var orderDate = $('#writeorderDate').val();
@@ -37,10 +36,9 @@ $(document).ready(function(){
 			);
 		$(document.body).append($form);
 		$form.submit();
-
 	});
-	
-	$('#cancelBtn').click(function(){
+
+	$(document).on("click", "#cancelBtn", function(){
 		alert("준비중입니다.")
 	});
 });
@@ -59,7 +57,10 @@ li a {
     display: block;
     color: #000;
     padding: 8px 16px;
-    text-decoration: none;
+/*     text-decoration: none; */
+}
+li>a:hover {
+	text-decoration: none;
 }
 /* li a.active { */
 /*     background-color: #4CAF50; */
@@ -88,6 +89,31 @@ li a:hover:not(.active) {
 }
 #datailTable>table {
 	width: 100%;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+#datailTable>thead, tbody {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+#datailTable>table>thead {
+	background-color: #ccc;
+}
+#datailTable>table>thead>tr>th {
+	text-align: center;
+}
+#datailTable>table>tbody>tr>td {
+	text-align: center;
+}
+
+#datailTable>table>tbody>tr {
+	border-top: 1px solid #777;
+	border-bottom: 1px solid #777;
+}
+#proname_a {
+	text-decoration: none;
+	color: black;
+	font-weight: 600;
 }
 </style>
 
@@ -125,16 +151,24 @@ li a:hover:not(.active) {
 							<img id="thumbnail" src="/image/default.png">	
 						</c:if>
 						</td>
-						<td><a href="/prodetail?proNo=${i.proNo}">${i.proName }</a></td>
+						<td style="text-align: left;">
+							<a id="proname_a" href="/prodetail?proNo=${i.proNo}">${i.proName }</a><br>
+							<span><fmt:formatNumber value="${i.proPrice }" pattern="##,###원" /></span>
+						</td>
 						<td>${i.orderState }</td>
 						<td>
 						<c:if test="${i.orderState eq '배송준비중'}">
-							<button id="cancelBtn">취소요청</button>
+							<button class="btn" id="cancelBtn">취소요청</button>
 						</c:if>
 						<c:if test="${i.orderState eq '배송완료'}">
 							<input type="hidden" id="writeProName" value="${i.proName }" />
 							<input type="hidden" id="writeorderDate" value="<fmt:formatDate value='${i.orderDate }' pattern='yyyy/MM/dd'/>" />
-							<button id="writeBtn" value="${i.proNo }">리뷰쓰기</button>
+							<c:if test="${i.procomChk > 0 }">
+								<button class="btn" id="writeBtn" value="${i.proNo }" disabled="disabled">리뷰쓰기</button>
+							</c:if>
+							<c:if test="${i.procomChk == 0 }">
+								<button class="btn" id="writeBtn" value="${i.proNo }">리뷰쓰기</button>
+							</c:if>
 						</c:if>
 						</td>
 					</tr>

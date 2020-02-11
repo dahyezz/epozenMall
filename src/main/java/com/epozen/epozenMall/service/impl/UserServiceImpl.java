@@ -53,4 +53,5 @@ public class UserServiceImpl implements UserService {
 	public int idCheck(ShopUserVO shopUserVO) {
 		return userMapper.idCheck(shopUserVO);
 	}
+	
 }

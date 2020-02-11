@@ -71,6 +71,9 @@ recomment_div>a{
 	font-size: 20px;
 	font-weight: 600;
 }
+.recomment {
+	float: right;
+}
 </style>
 
 <div class="comment-list">

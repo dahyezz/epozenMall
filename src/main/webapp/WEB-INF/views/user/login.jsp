@@ -49,6 +49,9 @@ $(document).ready(function() {
 	width: 100%;
 	text-align: center;
 }
+.login-form {
+	margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
@@ -58,22 +61,26 @@ $(document).ready(function() {
 </div>
 
 <div class="login">
+	<div class="login-form">
 	<form action="/login" method="post" id="loginForm">
 		<table style="text-align: center; margin: auto;">
 			<tr>
-				<th style="width: 100px" scope="row">
-				<label>아이디<input type="text" name="userId" /></label>
+				<th style="width: 80px" scope="row">
+				<label for="userId">아이디</label>
 				</th>
+				<td><input type="text" name="userId" id="userId" /></td>
 			</tr>
 			<tr>
-				<th style="width: 100px" scope="row">
-				<label>패스워드<input type="password" name="userPassword" /></label><br><br>
+				<th style="width: 80px" scope="row">
+				<label for="userPassword">패스워드</label>
 				</th>
+				<td><input type="password" name="userPassword" id="userPassword"/></td>
 			</tr>
 		</table>
 	</form>
-	<button id="btnJoin">회원가입</button>
-	<button id="btnLogin">로그인</button>
+	</div>
+	<button class="btn" id="btnJoin">회원가입</button>
+	<button class="btn btn-success" id="btnLogin">로그인</button>
 </div>
 
 </body>

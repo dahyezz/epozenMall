@@ -68,6 +68,7 @@ public class ProductController {
 	@GetMapping("/order")
 	public ModelAndView orderProduct(ShopUserVO shopUserVO,  ModelAndView mav, HttpSession session) {
 		
+		
 		shopUserVO.setUserId(session.getAttribute("userId").toString());
 		ShopUserVO user = productService.selectUser(shopUserVO);
 		
