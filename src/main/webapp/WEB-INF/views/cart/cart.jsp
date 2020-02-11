@@ -19,14 +19,38 @@ $(document).ready(function() {
 		location.href="/list";
 	});
 	
+	var targets="";
 	/* 구매하기 버튼 동작 */
 	$('#buyBtn').click(function() {
 	
+		// 선택된 체크 박스
+		var $checkboxes = $("input:checkbox[name=orderChk]:checked");
+		
+		// 체크된 대상들을 map으로 만들기
+		var map = $checkboxes.map(function() {
+			return $(this).val();
+		});
+		var names = map.get().join(",");
+		console.log(names);
+		
+		var rows = $('#cartInfo tr');
+		
+		$(rows).each(function(idx){
+			//idx!=0 : idx=0인 경우는 th태그임
+			if(idx!=0 && $(this).children().children().eq(0).prop('checked')){ //체크된 항목들만 계산
+				var $target = $(rows[idx]).find('td').eq(4).children();
+
+				targets = targets + $target.val() + ",";
+			}
+			
+		});	
+		console.log(targets)
+		
 		if(total >= 50000)
 			deliveryCost = 0;
 		else
 			deliveryCost = 2500;
-		location.href ="/order?proPrice="+total+"&deliveryCost="+deliveryCost;	
+		location.href ="/order?proPrice="+total+"&deliveryCost="+deliveryCost+"&products="+names+"&price="+targets;	
 	});
 	
 	/* 삭제 버튼 동작  */
@@ -40,7 +64,8 @@ $(document).ready(function() {
 			return $(this).val();
 		});
 		var names = map.get().join(",");
-			
+		
+		
 		
 		$.ajax({
 			url: "/cartDelete"
@@ -135,8 +160,7 @@ $(document).ready(function() {
 		}); 
 		
 	})
-	
-	
+
 });
 
 //전체 체크/체크해제 되는 동작

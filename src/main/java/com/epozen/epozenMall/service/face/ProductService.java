@@ -59,6 +59,8 @@ public interface ProductService {
 
 	ShopUserVO selectUser(ShopUserVO shopUserVO);
 
+	void buyOrderde(Map<String, Object> map);
+
 
 
 

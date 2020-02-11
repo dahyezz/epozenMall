@@ -60,14 +60,44 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	/*구매하기*/
 	public void insertOrder(ShopOrderVO shopOrderVO) {
-		ShopOrderdeVO shopOrderdeVO = new ShopOrderdeVO();
+//		ShopOrderdeVO shopOrderdeVO = new ShopOrderdeVO();
 		
 		productMapper.insertOrder(shopOrderVO);
 		
-		int orderNo = productMapper.selectOrderNo(shopOrderVO);
-		shopOrderdeVO.setOrderNo(orderNo);
-		productMapper.insertOrderde(shopOrderdeVO);
+//		int orderNo = productMapper.selectOrderNo(shopOrderVO);
+//		shopOrderdeVO.setOrderNo(orderNo);
+//		productMapper.insertOrderde(shopOrderdeVO);
 	//	cartMapper.deleteCartByCartNo(shopOrderdeVO));
+	}
+	
+	@Override
+	public void buyOrderde(Map<String, Object> map) {
+
+		int orderNo = productMapper.selectTopOrderNo();
+		
+		ShopOrderdeVO shopOrderdeVO = new ShopOrderdeVO();
+		shopOrderdeVO.setOrderNo(orderNo);
+		
+		String productStr = (String) map.get("products");
+		String[] productList = productStr.split(",");
+		int[] proList = new int[productList.length];
+		
+		String priceStr = (String) map.get("price");
+		String[] priceList = priceStr.split(",");
+		int[] priList = new int[priceList.length];
+		
+		for(int i=0; i<proList.length; i++) {
+			proList[i] = Integer.parseInt(productList[i].toString());
+			priList[i] = Integer.parseInt(priceList[i].toString());
+			
+			shopOrderdeVO.setOrderdeAmount(1);
+			shopOrderdeVO.setOrderdePrice(priList[i]);
+			shopOrderdeVO.setProNo(proList[i]);
+			productMapper.insertOrderde(shopOrderdeVO);
+			cartMapper.deleteCartByCartNo(proList[i]);
+		}
+		
+		
 	}
 	
 	@Override

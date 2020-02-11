@@ -90,7 +90,8 @@ td{
 </div>
 
 <script>
-
+var products;
+var price;
 /* 주문자와 동일 */
 
 $(document).ready(function(){
@@ -98,6 +99,10 @@ $(document).ready(function(){
 		var a = <%= request.getParameter("deliveryCost")%>;
 		var total = a + b;
 		document.getElementById("total").innerHTML = total;
+		
+		products = "${products }";
+		price ="${price }";
+	
 	
 });
 function check(){
@@ -147,14 +152,16 @@ $('#btnOrder').click(function() {
 	
 	var userId = "${user.userId}";
 	var orderPrice = total;
-	var price = price;
+// 	var price = price;
 	
 	$.ajax({
 			url: "/order"
 			, type: "post"
 			, data: {
 				"userId" : userId,
-				"orderPrice" : orderPrice
+				"orderPrice" : orderPrice,
+				"products" : products,
+				"price" : price
 			}
 			,success: function(){
 				var re = confirm("구매  완료 하시겠습니까??");

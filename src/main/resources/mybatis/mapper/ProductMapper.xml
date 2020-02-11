@@ -133,7 +133,7 @@
 			SHOP_ORDER_SEQ.nextval,
 			#{userId},
 			TO_DATE(SYSDATE,'yyyy/MM/dd'),
-			'준비중',
+			'배송준비중',
 			#{orderPrice}
 		)
 	</insert>
@@ -169,6 +169,11 @@
 			shop_user
 		WHERE 
 		  user_id = #{userId}	
+	</select>
+	
+	<select id="selectTopOrderNo" resultType="int">
+		SELECT MAX(order_no)
+		FROM shop_order
 	</select>
 
 
