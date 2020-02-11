@@ -18,6 +18,24 @@
 .btns{
 	margin:5px;
 }
+.nav-tabs>li {
+	text-align: center;
+	width: 33.33%;
+	background-color: #ccc;
+}
+.nav-tabs>li>a {
+	text-decoration: none;
+	color: black;
+	font-weight: 500;
+	margin-right: 0;
+}
+.tab-content {
+	margin-top: 20px;
+	padding: 10px;
+}
+#tab_detail {
+	padding: 15px;
+}
 </style>
 
 <div class="container">
@@ -58,16 +76,12 @@
 		</tr>
 		</table>
 		</form>
-	
-
-	 
-	  	
-     
+    
      <!-- Nav tabs -->
      <div>
 		<ul class="nav nav-tabs" role="tablist">
 		  <li role="presentation"><a href="javavscript:void(0)" onclick="select('detail')" >상품 상세</a></li>
-		  <li role="presentation"><a href="javascript:void(0)" onclick="select('procom')">상품 평</a></li>
+		  <li role="presentation" class="deprocom"><a href="javascript:void(0)" onclick="select('procom')">상품 평</a></li>
 		  <li role="presentation"><a href="javascript:void(0)" onclick="select('comment')">댓글</a></li>
 		</ul>
  	</div>
@@ -102,10 +116,8 @@
 		</div>
 
 		<div  class="tab" id="tab_procom">
-<%-- 		<c:import url="/WEB-INF/views/product/deprocom.jsp" /> --%>
 		</div>
 		<div  class="tab" id="tab_comment">
-<%-- 		<%@ include file="./comment.jsp" %> --%>
 		</div>
 		
 	</div>
@@ -184,7 +196,7 @@ $(document).ready(function(){
 	
 	/* 대댓글 작성 */
 	$('#tab_comment').on("click", "#recommentBtn", function(){
-	
+
 		//작성자, 상품번호, parent 댓글 번호
 		var userId = "${userId }";
 		var proNo = "${detail.proNo }";
@@ -213,7 +225,7 @@ $(document).ready(function(){
 		});
 		
 	});
-	
+
 });
 /* 장바구니 담기 버튼 */
 $(document).on('click', '#btnIncart', function(){

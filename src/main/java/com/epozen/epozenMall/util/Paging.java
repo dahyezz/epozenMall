@@ -15,6 +15,7 @@ public class Paging {
 	private int endNo;	//게시물리스트 마지막 번호
 	private int proNo; //상품코드
 
+	private String listSelect;
 
 	public Paging() {	}
 	
@@ -95,7 +96,7 @@ public class Paging {
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + ", proNo=" + proNo + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", proNo=" + proNo + ", listSelect=" + listSelect + "]";
 	}
 
 	public int getCurPage() {
@@ -176,6 +177,14 @@ public class Paging {
 
 	public void setProNo(int proNo) {
 		this.proNo = proNo;
+	}
+
+	public String getListSelect() {
+		return listSelect;
+	}
+
+	public void setListSelect(String listSelect) {
+		this.listSelect = listSelect;
 	}
 	
 	

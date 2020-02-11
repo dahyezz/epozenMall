@@ -41,7 +41,17 @@
 			B.order_state orderState, 
 			A.img_no imgNo, 
 			A.pro_name proName, 
-			A.pro_price proPrice 
+			A.pro_price proPrice,
+			(
+				SELECT 
+					count(*) 
+			    FROM 
+			    	shop_procom P
+			    WHERE 
+			    	P.pro_no = A.pro_no
+			    AND 
+			    	user_id=#{userId }
+			) as procomChk
 		FROM 
 			shop_product A, shop_order B, shop_orderde C
 		WHERE 
@@ -79,7 +89,7 @@
       	SHOP_USER
       WHERE
           user_id = #{userId}
-</select>
-	
+	</select>
+
 	
 </mapper>

@@ -31,14 +31,16 @@ public class ProductController {
 	ProductService productService;
 	
 	@GetMapping("/list")
-	public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue="1") int curPage, Map<String, Object> map) {
-		
+	public ModelAndView list(ModelAndView mav, @RequestParam(defaultValue="1") int curPage, String listSelect, Map<String, Object> map) {
+
 		map.put("curPage", curPage);
+		map.put("listSelect", listSelect);
 		Paging paging = productService.getCurPage(map);
 		
 		List<ShopProductVO> productList = productService.selectAllPro(paging);
 		
 		mav.addObject("proList", productList);
+		mav.addObject("lisel",listSelect);
 		mav.addObject("paging", paging);
 		mav.setViewName("/product/list");
 		return mav;
@@ -61,12 +63,15 @@ public class ProductController {
 		System.out.println(VO.toString());
 		productService.insertInCart(VO); // 장바구니 테이블에 저장
 
+
 		return "redirect:/prodetail?proNo="+VO.getProNo();
+
 	}
 	
 	//구매 페이지
 	@GetMapping("/order")
 	public ModelAndView orderProduct(ShopUserVO shopUserVO,  ModelAndView mav, HttpSession session) {
+		
 		
 		shopUserVO.setUserId(session.getAttribute("userId").toString());
 		ShopUserVO user = productService.selectUser(shopUserVO);

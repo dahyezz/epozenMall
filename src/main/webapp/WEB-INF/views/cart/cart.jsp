@@ -80,7 +80,7 @@ $(document).ready(function() {
 	$("input:checkbox").on('click', function(){
 		var rows = $('#cartInfo tr');
 		total = 0; //전체금액 초기화
-		
+
 		if($(this).prop('checked')){ //체크 시
 			$(rows).each(function(idx){
 				//idx!=0 : idx=0인 경우는 th태그임
@@ -165,7 +165,7 @@ function proStatus(deliveryCost, total){
 		deliveryCost = 0;
 	else
 		deliveryCost = 2500;
-
+	
 	document.getElementById("proPrice").innerHTML = total;
 	document.getElementById("deliveryCost").innerHTML = deliveryCost;
 	document.getElementById("totalPrice").innerHTML = total+deliveryCost; 
@@ -181,9 +181,60 @@ function proStatus(deliveryCost, total){
 }
 .cartDetail>table {
 	width: 100%;
+	margin-bottom: 20px;
+	border-top: 1px solid #777;
+	border-bottom: 1px solid #777;
+	text-align: center;
+}
+.cartDetail>table>tbody>tr {
+	border-bottom: 1px solid #777;
+}
+.cartDetail>table>tbody>tr>th {
+	background-color: #ccc;
+	text-align: center;
 }
 .priceContent>p {
 	display: inline-block;
+}
+.cartHead>p:first-child {
+	margin: 0 0 10px 0;
+	font-size: 30px;
+	font-weight: 600;
+}
+.cartHead>p:last-child {
+	display: inline-block;
+	float: right;
+}
+.cartHead {
+	height: 80px;
+}
+.cartDetail {
+	margin: 15px 0 15px 0;
+}
+#proname_a{
+	text-decoration: none;
+	color: black;
+	font-weight: 600;
+}
+.totalInfo {
+	margin-bottom: 15px;
+}
+.totalInfo>p{
+	display: inline-block;
+	float: right;
+}
+.priceContent {
+	text-align: center;
+	width: 80%;
+	margin: auto;
+	border: 1px solid #ccc;
+}
+.priceContent>p{
+	font-size: 20px;
+	margin: 5px 0;
+}
+.btnContent {
+	text-align: center;
 }
 </style>
 
@@ -204,11 +255,11 @@ function proStatus(deliveryCost, total){
 		<table id="cartInfo">
 			<tr>
 				<th><input type="checkbox" id="checkAllOrders" onclick="checkAll()" checked="checked" /></th>
-				<th>상품사진</th>
-				<th>상품명</th>
-				<th>가격</th>
-				<th>수량</th>
-				<th>배송비</th>
+				<th style="width: 20%;">상품사진</th>
+				<th style="width: 45%;">상품명</th>
+				<th style="width: 10%;">가격</th>
+				<th style="width: 10%;">수량</th>
+				<th style="width: 10%;">배송비</th>
 			</tr>
 			
 			<c:forEach items="${cartList }" var="i">
@@ -219,8 +270,13 @@ function proStatus(deliveryCost, total){
 					<img id="thumbnail" src="/image/default.png">	
 				</c:if>
 				</td>
-				<td>${i.proName }</td>
-				<td class="prClasss" id="price_${i.proNo }">${i.proPrice * i.cartAmount }</td>
+				<td style="text-align: left;">
+					<a id="proname_a" href="/prodetail?proNo=${i.proNo}">${i.proName }</a>
+				</td>
+				<td style="text-align: right;" class="prClasss" id="price_${i.proNo }">
+<%-- 				<fmt:formatNumber value="${i.proPrice * i.cartAmount }" pattern="##,###원" />  --%>
+				${i.proPrice * i.cartAmount }
+				</td>
 				<td>
 					<select name="amount" id="amount_${i.cartNo }">
 					<c:forEach begin="1" end="5" var="j">
@@ -233,9 +289,12 @@ function proStatus(deliveryCost, total){
 			</c:forEach>	
 
 		</table>
-		<form name="from">
-		<button id="deleteBtn">삭제</button>
-		<p>50,000원 이상 결제 시 배송비 무료</p>
+
+		<div class="totalInfo">
+			<button class="btn btn-sm" id="deleteBtn">삭제</button>
+			<p>50,000원 이상 결제 시 배송비 무료</p>
+		</div>
+
 		<div class="priceContent">
 			<p>총 주문금액&nbsp;&nbsp;</p><p id="proPrice"></p><p>원 + 총 배송비</p>
 			<p id="deliveryCost"></p><p>원 = 총 주문금액&nbsp;&nbsp;</p><p id="totalPrice"></p><p>원</p>
@@ -244,8 +303,9 @@ function proStatus(deliveryCost, total){
 	</div>
 	
 	<div class="btnContent">
+
 		<button id="shopBtn">계속 쇼핑하기</button> 
-		<button id="buyBtn" onclick="click()">구매하기</button>
+
 	</div>
 	
 </div>

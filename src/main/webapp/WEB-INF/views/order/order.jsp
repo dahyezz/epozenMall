@@ -62,6 +62,7 @@ td{
 				<td><input type="text" name="userRequest" id="userRequest"></td>
 			</tr>
 					<tr>
+
 				<td>총 상품가격 : </td>
 				<td><p id="price"><%= request.getParameter("proPrice") %>원</p></td>
 			</tr>
@@ -72,6 +73,7 @@ td{
 			<tr>
 				<td>총 결제 금액</td>
 				<td><p id="total" style="display:inline-block;"></p>원</td>
+
 			</tr>
 			<tr>
 				<td>결제 방법</td>
