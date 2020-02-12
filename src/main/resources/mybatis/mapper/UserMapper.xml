@@ -34,34 +34,41 @@
 		WHERE user_id = #{userId }
 	</update>
 			
-	<select id="selectOrderByUserId" parameterType="com.epozen.epozenMall.vo.ShopUserVO" resultType="com.epozen.epozenMall.vo.UserOrderVO">
-		SELECT 
-			A.pro_no proNo,
-			B.order_date orderDate, 
-			B.order_state orderState, 
-			A.img_no imgNo, 
-			A.pro_name proName, 
-			A.pro_price proPrice,
-			(
-				SELECT 
-					count(*) 
-			    FROM 
-			    	shop_procom P
-			    WHERE 
-			    	P.pro_no = A.pro_no
-			    AND 
-			    	user_id=#{userId }
-			) as procomChk
-		FROM 
-			shop_product A, shop_order B, shop_orderde C
-		WHERE 
-			B.user_id = #{userId }
-		AND 
-			B.order_no = C.order_no
-		AND 
-			A.pro_no = C.pro_no
-		ORDER BY 
-			B.order_no desc
+	<select id="selectOrderByUserId" parameterType="com.epozen.epozenMall.util.Paging" resultType="com.epozen.epozenMall.vo.UserOrderVO">
+		SELECT * FROM
+   		(
+   			SELECT rownum rnum, T.*
+     		FROM (
+		        SELECT 
+		                A.pro_no proNo,
+		                B.order_date orderDate, 
+		                B.order_state orderState, 
+		                A.img_no imgNo, 
+		                A.pro_name proName, 
+		                A.pro_price proPrice,
+		                (
+		                    SELECT 
+		                        count(*) 
+		                    FROM 
+		                        shop_procom P
+		                    WHERE 
+		                        P.pro_no = A.pro_no
+		                    AND 
+		                        user_id=#{userId }
+		                ) as procomChk
+		            FROM 
+		                shop_product A, shop_order B, shop_orderde C
+		            WHERE 
+		                B.user_id = #{userId }
+		            AND 
+		                B.order_no = C.order_no
+		            AND 
+		                A.pro_no = C.pro_no
+		            ORDER BY 
+		                B.order_no desc
+		    ) T
+        )
+        WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 
 	<!-- 회원가입 -->
@@ -91,5 +98,19 @@
           user_id = #{userId}
 	</select>
 
-	
+	<!-- 내 주문목록 갯수 확인  -->
+	<select id="selectCntOrderByUserId" parameterType="com.epozen.epozenMall.util.Paging" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT T.order_no, T.order_date, T.order_state, T.pro_no, T.orderde_price, C.pro_name
+		    FROM (
+		        SELECT A.order_no, A.order_date, A.order_state, B.pro_no, B.orderde_price 
+		        FROM shop_order A, shop_orderde B
+		        WHERE A.order_no = B.order_no
+		        AND A.user_id = #{userId }) T 
+		        INNER JOIN
+		        shop_product C
+		    ON T.pro_no = C.pro_no
+		)
+	</select>
 </mapper>

@@ -16,5 +16,6 @@ public class UserOrderVO {
 	private int proNo;
 	private int cartAmount;
 	private int procomChk; //상품평 작성 갯수
+	private String userId;
 	
 }

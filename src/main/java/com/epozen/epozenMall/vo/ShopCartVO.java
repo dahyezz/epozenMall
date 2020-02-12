@@ -10,12 +10,4 @@ public class ShopCartVO {
 	private int cartAmount;
 	private int cartPrice;
 
-	@Override
-	public String toString() {
-		return "ShopCart [cartNo=" + cartNo + ", userId=" + userId + ", proNo=" + proNo + ", cartAmount=" + cartAmount
-				+ ", cartPrice=" + cartPrice + "]";
-	}
-	
-	
-	
 }

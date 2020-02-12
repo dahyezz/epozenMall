@@ -16,6 +16,7 @@ public class Paging {
 	private int proNo; //상품코드
 
 	private String listSelect;
+	private String userId;
 
 	public Paging() {	}
 	
@@ -185,6 +186,14 @@ public class Paging {
 
 	public void setListSelect(String listSelect) {
 		this.listSelect = listSelect;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

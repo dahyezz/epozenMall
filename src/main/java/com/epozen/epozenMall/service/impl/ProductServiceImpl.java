@@ -16,6 +16,7 @@ import com.epozen.epozenMall.vo.ShopOrderdeVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
+import com.epozen.epozenMall.vo.UserOrderVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -73,8 +74,9 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public void buyOrderde(Map<String, Object> map) {
 
+		// 마지막으로 생성된 orderNo 조회
 		int orderNo = productMapper.selectTopOrderNo();
-		
+			
 		ShopOrderdeVO shopOrderdeVO = new ShopOrderdeVO();
 		shopOrderdeVO.setOrderNo(orderNo);
 		
@@ -86,17 +88,37 @@ public class ProductServiceImpl implements ProductService{
 		String[] priceList = priceStr.split(",");
 		int[] priList = new int[priceList.length];
 		
+		// 장바구니에서 삭제하기 위한 vo
+		UserOrderVO userOrderVO = new UserOrderVO();
+		userOrderVO.setUserId(map.get("userId").toString());
+		
+		
+		// ------------------------------------------------------
+		//   shop_orderde 테이블에 insert, shop_cart delete 부분
 		for(int i=0; i<proList.length; i++) {
 			proList[i] = Integer.parseInt(productList[i].toString());
 			priList[i] = Integer.parseInt(priceList[i].toString());
-			
+
 			shopOrderdeVO.setOrderdeAmount(1);
 			shopOrderdeVO.setOrderdePrice(priList[i]);
 			shopOrderdeVO.setProNo(proList[i]);
 			productMapper.insertOrderde(shopOrderdeVO);
-			cartMapper.deleteCartByCartNo(proList[i]);
+			
+			// ------------------------------------------------------
+			// shop_cart에서 구매완료된 상품 삭제하는 부분
+			
+			// 파라미터 : userOrderVO 이용 (userId, proNo)
+			// 		userId - map 활용
+			//		proNo - 구매완료한 상품들의 proNo를 setting 해줌
+			userOrderVO.setProNo(proList[i]);
+
+			//	cartNo - 장바구니 삭제 시 필요한 파라미터를 조회해옴
+			int cartNo = productMapper.selectCartNoByUserInfo(userOrderVO);
+			
+			cartMapper.deleteCartByCartNo(cartNo);
+			// ------------------------------------------------------
 		}
-		
+		// ------------------------------------------------------
 		
 	}
 	

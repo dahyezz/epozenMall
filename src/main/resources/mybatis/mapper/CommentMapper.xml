@@ -17,7 +17,7 @@
 			#{userId},
 			#{proNo},
 			#{comContents},
-			TO_DATE(SYSDATE,'yyyy/MM/dd'),
+			SYSDATE,
 			#{comDepth},
 			#{comSeq}
 		)

@@ -1,7 +1,9 @@
 package com.epozen.epozenMall.service.face;
 
 import java.util.List;
+import java.util.Map;
 
+import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopUserVO;
 import com.epozen.epozenMall.vo.UserOrderVO;
 
@@ -39,13 +41,15 @@ public interface UserService {
 	/**
 	 * 내 주문목록 불러오기
 	 * 
-	 * @param shopUserVO
+	 * @param paging
 	 * @return UserOrderVO -내 주문목록 
 	 */
-	List<UserOrderVO> getOrderList(ShopUserVO shopUserVO);
+	List<UserOrderVO> getOrderList(Paging paging);
 
 	void register(ShopUserVO shopUserVO);
 
 	int idCheck(ShopUserVO shopUserVO);
+
+	Paging getcurPage(Map<String, Object> map);
 
 }

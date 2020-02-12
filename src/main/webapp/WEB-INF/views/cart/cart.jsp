@@ -22,13 +22,14 @@ $(document).ready(function() {
 	var targets="";
 	/* 구매하기 버튼 동작 */
 	$('#buyBtn').click(function() {
-	
+		targets="";
 		// 선택된 체크 박스
 		var $checkboxes = $("input:checkbox[name=orderChk]:checked");
+// 		console.log($checkboxes.parent().parent().children().eq(1).children().val())
 		
 		// 체크된 대상들을 map으로 만들기
 		var map = $checkboxes.map(function() {
-			return $(this).val();
+			return $(this).parent().parent().children().eq(1).children().val();
 		});
 		var names = map.get().join(",");
 		console.log(names);
@@ -38,7 +39,7 @@ $(document).ready(function() {
 		$(rows).each(function(idx){
 			//idx!=0 : idx=0인 경우는 th태그임
 			if(idx!=0 && $(this).children().children().eq(0).prop('checked')){ //체크된 항목들만 계산
-				var $target = $(rows[idx]).find('td').eq(4).children();
+				var $target = $(rows[idx]).find('td').eq(5).children();
 
 				targets = targets + $target.val() + ",";
 			}
@@ -110,7 +111,7 @@ $(document).ready(function() {
 			$(rows).each(function(idx){
 				//idx!=0 : idx=0인 경우는 th태그임
 				if(idx!=0 && $(this).children().children().eq(0).prop('checked')){ //체크된 항목들만 계산
-					var eachPrice = $(rows[idx]).find('td').eq(3).text();
+					var eachPrice = $(rows[idx]).find('td').eq(4).text();
 					eachPrice *= 1;
 					total += eachPrice;
 				}
@@ -119,7 +120,7 @@ $(document).ready(function() {
 			$(rows).each(function(idx){
 				//체크된 항목들만 계산
 				if(idx!=0 && $(this).children().children().eq(0).prop('checked')){
-					var eachPrice = $(rows[idx]).find('td').eq(3).text();
+					var eachPrice = $(rows[idx]).find('td').eq(4).text();
 					eachPrice *= 1;
 					total += eachPrice;
 				}
@@ -135,14 +136,14 @@ $(document).ready(function() {
 	select_amt.on("change", function(){
 		var selected = $(this).val();
 		
-		$(this).parent().parent().children().eq(3).html(selected); //가격정보에 해당 데이터 삽입
+		$(this).parent().parent().children().eq(4).html(selected); //가격정보에 해당 데이터 삽입
 		
 		//각 상품별 배송비 제어
 		var dCost = $(this).parent().parent().children().eq(5).text(); 
 		if(selected>50000){
-			$(this).parent().parent().children().eq(5).html("0원");
+			$(this).parent().parent().children().eq(6).html("0원");
 		} else {
-			$(this).parent().parent().children().eq(5).html("2,500원");
+			$(this).parent().parent().children().eq(6).html("2,500원");
 		}
 		
 		/* tr값 변경 시 */
@@ -151,7 +152,7 @@ $(document).ready(function() {
 			total = 0;
 			$(rows).each(function(idx){
 				if(idx!=0  && $(this).children().children().eq(0).prop('checked') ){
-					var eachPrice = $(rows[idx]).find('td').eq(3).text();
+					var eachPrice = $(rows[idx]).find('td').eq(4).text();
 					eachPrice *= 1;
 					total += eachPrice;
 				}
@@ -279,6 +280,7 @@ function proStatus(deliveryCost, total){
 		<table id="cartInfo">
 			<tr>
 				<th><input type="checkbox" id="checkAllOrders" onclick="checkAll()" checked="checked" /></th>
+				<th style="width: 0%"></th>
 				<th style="width: 20%;">상품사진</th>
 				<th style="width: 45%;">상품명</th>
 				<th style="width: 10%;">가격</th>
@@ -288,7 +290,12 @@ function proStatus(deliveryCost, total){
 			
 			<c:forEach items="${cartList }" var="i">
 			<tr id="${i.cartNo }">
-				<td><input type="checkbox" class="orderChk" name="orderChk" id="orderChk_${i.cartNo }" checked="checked" value="${i.cartNo }"/></td>
+				<td>
+					<input type="checkbox" class="orderChk" name="orderChk" id="orderChk_${i.cartNo }" checked="checked" value="${i.cartNo }"/>
+					
+				</td>
+				<td><input type="hidden" name="proNoChk" value="${i.proNo }" />
+				</td>
 				<td>
 				<c:if test="${i.imgNo eq 0 }">
 					<img id="thumbnail" src="/image/default.png">	

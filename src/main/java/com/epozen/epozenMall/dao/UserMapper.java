@@ -1,7 +1,9 @@
 package com.epozen.epozenMall.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopUserVO;
 import com.epozen.epozenMall.vo.UserOrderVO;
 
@@ -41,18 +43,18 @@ public interface UserMapper {
 	/**
 	 * 내 주문 갯수 확인
 	 * 
-	 * @param shopUserVO - userId
+	 * @param map - userId
 	 * @return int - count
 	 */
-	int selectCntOrderByUserId(ShopUserVO shopUserVO);
+	int selectCntOrderByUserId(Map<String, Object> map);
 
 	/**
 	 * 내 주문 목록 조회
 	 * 
-	 * @param shopUserVO
+	 * @param paging
 	 * @return
 	 */
-	List<UserOrderVO> selectOrderByUserId(ShopUserVO shopUserVO);
+	List<UserOrderVO> selectOrderByUserId(Paging paging);
 
 	void insertUser(ShopUserVO shopUserVO);
 
