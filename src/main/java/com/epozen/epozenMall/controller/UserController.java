@@ -100,18 +100,23 @@ public class UserController {
 				@RequestParam(defaultValue="1") int curPage, Map<String, Object> map
 			) {
 
-		shopUserVO.setUserId(session.getAttribute("userId").toString());
-		
-		map.put("curPage", curPage);
-		map.put("userId", shopUserVO.getUserId());
-		Paging paging = userService.getcurPage(map);
-		
-		// UserOrderVO : 주문목록
-		List<UserOrderVO> orderList = userService.getOrderList(paging);
-		mav.addObject("orderList", orderList);
-		mav.addObject("paging", paging);
-				
-		mav.setViewName("/user/orderdetail");
+		if(session == null || session.getAttribute("userId")==null) {
+			mav.setViewName("redirect:/login");
+		} else {
+			shopUserVO.setUserId(session.getAttribute("userId").toString());
+			
+			map.put("curPage", curPage);
+			map.put("userId", shopUserVO.getUserId());
+			Paging paging = userService.getcurPage(map);
+			
+			// UserOrderVO : 주문목록
+			List<UserOrderVO> orderList = userService.getOrderList(paging);
+			mav.addObject("orderList", orderList);
+			mav.addObject("paging", paging);
+					
+			mav.setViewName("/user/orderdetail");
+		}
+	
 
 		return mav;
 	}
