@@ -14,12 +14,4 @@ public class ShopCommentVO {
 	private int comDepth;
 	private int comSeq;
 
-	@Override
-	public String toString() {
-		return "ShopComment [comNo=" + comNo + ", userId=" + userId + ", proNo=" + proNo + ", comContents="
-				+ comContents + ", comRegdate=" + comRegdate + ", comDepth=" + comDepth + ", comSeq=" + comSeq + "]";
-	}
-	
-	
-
 }

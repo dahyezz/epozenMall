@@ -13,12 +13,4 @@ public class ShopProcomVO {
 	private Date procomRegdate;
 	private int imgNo;
 
-	@Override
-	public String toString() {
-		return "ShopProcom [procomNo=" + procomNo + ", userId=" + userId + ", proNo=" + proNo + ", procomContents="
-				+ procomContents + ", procomRegdate=" + procomRegdate + ", imgNo=" + imgNo + "]";
-	}
-	
-	
-	
 }

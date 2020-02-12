@@ -16,6 +16,7 @@ import com.epozen.epozenMall.vo.ShopOrderdeVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
+import com.epozen.epozenMall.vo.UserOrderVO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -74,6 +75,8 @@ public class ProductServiceImpl implements ProductService{
 	public void buyOrderde(Map<String, Object> map) {
 
 		int orderNo = productMapper.selectTopOrderNo();
+		UserOrderVO userOrderVO = new UserOrderVO();
+		userOrderVO.setUserId(map.get("userId").toString());
 		
 		ShopOrderdeVO shopOrderdeVO = new ShopOrderdeVO();
 		shopOrderdeVO.setOrderNo(orderNo);
@@ -89,12 +92,15 @@ public class ProductServiceImpl implements ProductService{
 		for(int i=0; i<proList.length; i++) {
 			proList[i] = Integer.parseInt(productList[i].toString());
 			priList[i] = Integer.parseInt(priceList[i].toString());
-			
+
 			shopOrderdeVO.setOrderdeAmount(1);
 			shopOrderdeVO.setOrderdePrice(priList[i]);
 			shopOrderdeVO.setProNo(proList[i]);
 			productMapper.insertOrderde(shopOrderdeVO);
-			cartMapper.deleteCartByCartNo(proList[i]);
+			
+			userOrderVO.setProNo(proList[i]);
+			int cartNo = productMapper.selectCartNoByUserInfo(userOrderVO);
+			cartMapper.deleteCartByCartNo(cartNo);
 		}
 		
 		

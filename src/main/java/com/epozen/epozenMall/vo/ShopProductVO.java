@@ -11,12 +11,4 @@ public class ShopProductVO {
 	private String proDetail;
 	private int imgNo;
 
-	@Override
-	public String toString() {
-		return "ShopProduct [proNo=" + proNo + ", proCate=" + proCate + ", proName=" + proName + ", proPrice="
-				+ proPrice + ", proDetail=" + proDetail + ", imgNo=" + imgNo + "]";
-	}
-	
-	
-
 }

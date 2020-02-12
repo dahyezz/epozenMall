@@ -10,11 +10,4 @@ public class ShopImgVO {
 	private String originName;
 	private String storedName;
 
-	@Override
-	public String toString() {
-		return "ShopImg [imgNo=" + imgNo + ", proNo=" + proNo + ", procomNo=" + procomNo + ", originName=" + originName
-				+ ", storedName=" + storedName + "]";
-	}
-	
-	
 }

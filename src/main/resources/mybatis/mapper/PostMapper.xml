@@ -17,7 +17,7 @@
 			#{userId }, 
 			#{proNo }, 
 			#{procomContents }, 
-			TO_DATE(SYSDATE,'yyyy/MM/dd'),
+			SYSDATE,
 			0
 		)
 	</insert>

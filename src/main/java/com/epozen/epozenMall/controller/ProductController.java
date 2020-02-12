@@ -90,6 +90,7 @@ public class ProductController {
 		
 		map.put("products", products);
 		map.put("price", price);
+		map.put("userId", session.getAttribute("userId").toString());
 		
 		shopOrderVO.setUserId(session.getAttribute("userId").toString());
 		

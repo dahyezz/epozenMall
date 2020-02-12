@@ -11,14 +11,6 @@ public class ShopOrderVO {
 	private Date orderDate;
 	private String orderState;
 	private int orderPrice;
-	
 
-	@Override
-	public String toString() {
-		return "ShopOrder [orderNo=" + orderNo + ", userId=" + userId + ", orderDate=" + orderDate + ", orderState="
-				+ orderState + ", orderPrice=" + orderPrice + "]";
-	}
-	
-	
 
 }

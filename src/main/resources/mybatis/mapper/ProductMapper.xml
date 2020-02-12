@@ -132,7 +132,7 @@
 		VALUES (
 			SHOP_ORDER_SEQ.nextval,
 			#{userId},
-			TO_DATE(SYSDATE,'yyyy/MM/dd'),
+			SYSDATE,
 			'배송준비중',
 			#{orderPrice}
 		)
@@ -177,4 +177,14 @@
 	</select>
 
 
+	<select id="selectCartNoByUserInfo" parameterType="com.epozen.epozenMall.vo.UserOrderVO" resultType="int">
+		select 
+			cart_no cartNo
+		FROM 
+			shop_cart
+		WHERE 
+			user_id = #{userId }
+		AND 
+			pro_no = #{proNo }
+	</select>
 </mapper>

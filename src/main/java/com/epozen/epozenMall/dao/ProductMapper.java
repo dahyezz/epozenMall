@@ -10,6 +10,7 @@ import com.epozen.epozenMall.vo.ShopOrderdeVO;
 import com.epozen.epozenMall.vo.ShopProcomVO;
 import com.epozen.epozenMall.vo.ShopProductVO;
 import com.epozen.epozenMall.vo.ShopUserVO;
+import com.epozen.epozenMall.vo.UserOrderVO;
 
 public interface ProductMapper {
 	
@@ -43,6 +44,8 @@ public interface ProductMapper {
 	void insertOrderde(ShopOrderdeVO shopOrderdeVO);
 
 	int selectTopOrderNo();
+
+	int selectCartNoByUserInfo(UserOrderVO userOrderVO);
 
 
 
