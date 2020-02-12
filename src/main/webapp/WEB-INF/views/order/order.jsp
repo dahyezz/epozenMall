@@ -153,9 +153,8 @@ $('#btnOrder').click(function() {
 	var userId = "${user.userId}";
 	var orderPrice = total;
 // 	var price = price;
-	var re = confirm("구매  완료 하시겠습니까??");
-	if(re){
-		$.ajax({
+	
+	$.ajax({
 			url: "/order"
 			, type: "post"
 			, data: {
@@ -165,17 +164,18 @@ $('#btnOrder').click(function() {
 				"price" : price
 			}
 			,success: function(){
-				alert("구매 완료 되었습니다.");
-				location.href="/cart";
+				var re = confirm("구매  완료 하시겠습니까??");
+				if(re) {
+					alert("구매 완료 되었습니다.");
+					location.href="/cart";
+				}else {
+					return;
+				}
 			}
 			, error: function() {
 				console.log("error")
 			}
 		});
-	} else {
-		alert("구매가 취소되었습니다.")
-	}
-	
 });
 
 $('#btnBack').click(function(){
