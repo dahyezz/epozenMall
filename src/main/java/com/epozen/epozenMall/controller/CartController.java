@@ -25,11 +25,18 @@ public class CartController {
 	//장바구니 페이지
 	@GetMapping("/cart")
 	public ModelAndView cart(ModelAndView mav, HttpSession session, ShopUserVO shopUserVO) {
-		shopUserVO.setUserId(session.getAttribute("userId").toString());
-		List<UserOrderVO> cartList = cartService.getCartList(shopUserVO);
 		
-		mav.addObject("cartList", cartList);
-		mav.setViewName("/cart/cart");
+		if(session == null || session.getAttribute("userId")==null) {
+			mav.setViewName("redirect:/login");
+		} else {
+			shopUserVO.setUserId(session.getAttribute("userId").toString());
+			List<UserOrderVO> cartList = cartService.getCartList(shopUserVO);
+			
+			mav.addObject("cartList", cartList);
+			mav.setViewName("/cart/cart");
+		}
+		
+		
 		return mav;
 	}  
 	
