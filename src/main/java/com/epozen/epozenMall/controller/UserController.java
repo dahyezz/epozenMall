@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epozen.epozenMall.service.face.UserService;
+import com.epozen.epozenMall.util.Paging;
 import com.epozen.epozenMall.vo.ShopUserVO;
 import com.epozen.epozenMall.vo.UserOrderVO;
 
@@ -94,12 +96,20 @@ public class UserController {
 
 	// 주문목록/배송조회 페이지
 	@GetMapping("/orderdetail")
-	public ModelAndView detail(ModelAndView mav, HttpSession session, ShopUserVO shopUserVO) {
+	public ModelAndView detail(ModelAndView mav, HttpSession session, ShopUserVO shopUserVO,
+				@RequestParam(defaultValue="1") int curPage, Map<String, Object> map
+			) {
 
 		shopUserVO.setUserId(session.getAttribute("userId").toString());
+		
+		map.put("curPage", curPage);
+		map.put("userId", shopUserVO.getUserId());
+		Paging paging = userService.getcurPage(map);
+		
 		// UserOrderVO : 주문목록
-		List<UserOrderVO> orderList = userService.getOrderList(shopUserVO);
+		List<UserOrderVO> orderList = userService.getOrderList(paging);
 		mav.addObject("orderList", orderList);
+		mav.addObject("paging", paging);
 				
 		mav.setViewName("/user/orderdetail");
 
