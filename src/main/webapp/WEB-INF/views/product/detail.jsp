@@ -45,7 +45,9 @@
 	  <table id="table">
 	  	<tr>
 	  		<td rowspan="5">
-	  		<img id="thumbnail" src="/image/default.png" width="250px" height="200px" > </td>
+<!-- 	  		<img id="thumbnail" src="/image/default.PNG" width="250px" height="200px" >  -->
+			<img style="margin: 20px;" id="thumbnail" src="/image/${detail.imgNo }.png" >
+			</td>
 	  	</tr>	
 	  	
 	  	<tr>
@@ -71,7 +73,7 @@
 			<td><input type="hidden" name="orderState" id="orderState" value="중비중"> </td>
 			<td><input type="hidden" name="orderNo" id="orderNo"> </td>
 			
-			<td><input type="button" id="btnIncart" class="btns" value="장바구니 담기"> </td>
+			<td><input type="button" id="btnIncart" class="btn" value="장바구니 담기"> </td>
 			<!-- <td><button type="button" id="btnBuy" class="btns">바로 구매</button>  </td> -->
 		</tr>
 		</table>
@@ -130,22 +132,22 @@ $(document).ready(function(){
 
 	select('detail');	
 
-// 	$.ajax({
-// 		url: "/incart"
-// 		, type: "post"
-// 		, dataType: "html"
-// 		, data : {}
-// 		, success : function() {
-// 			// 넣기 후 메세지
-// 			if(confirm("장바구니로 이동하시겠습니까?") == true){
-// 				location.href="/cart";
-// 			}
-// 		}
-// 		, error : function() {
-// 			console.log("error")
-// 		}
-// 	})
-
+	/* 댓글 글자 수 제한 */
+	$(document).on('keyup','#commentcontent', function(){
+		var content = $(this).val();
+		
+		if(content.length>=500){
+			$(this).val(content.substring(0,500));
+			$('#counter').html("최대500자까지 입력가능합니다.");
+// 			$('#cmtWrite').attr('disabled', true);
+		} else {
+// 			$('#cmtWrite').attr('disabled', false);	
+			$('#counter').html("");
+		}
+		
+	});
+	
+	
 	/* 댓글 작성 */
 	$(document).on('click', '#cmtWrite', function(){
 		
@@ -171,7 +173,8 @@ $(document).ready(function(){
 				select('comment');
 			}
 			, error: function() {
-				console.log("error")
+// 				console.log("error")
+				alert("다시 시도해주세요")
 			}
 		});
 	});
@@ -220,7 +223,8 @@ $(document).ready(function(){
 				select('comment',1);
 			}
 			, error: function() {
-				console.log("error")
+// 				console.log("error");
+				alert("다시 시도해주세요")
 			}
 		});
 		
@@ -258,7 +262,8 @@ $(document).on('click', '#btnIncart', function(){
 			
 		}
 		, error: function() {
-			console.log("error")
+// 			console.log("error")
+			alert("다시 시도해주세요")
 		}
 	});
 });
@@ -291,7 +296,8 @@ function getProcomPage(curPage){
 			document.getElementById('tab_procom').innerHTML = data;
 		}
 		, error: function(data) {
-			console.log(data);
+// 			console.log(data);
+			alert("다시 시도해주세요")
 		}
 	});
 }
@@ -311,6 +317,7 @@ function getCommentPage(curPage){
 		}
 		, error: function(data) {
 			console.log(data);
+			alert("다시 시도해주세요")
 		}
 	});
 }
@@ -347,6 +354,7 @@ $(document).on('click', '#btnBuy', function(){
 		}
 		, error: function() {
 			console.log("error")
+			alert("다시 시도해주세요")
 		}
 	});
 });

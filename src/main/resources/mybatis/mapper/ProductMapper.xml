@@ -108,14 +108,16 @@
 			user_id,
 			pro_no,
 			cart_amount,
-			cart_Price 
+			cart_Price,
+			cart_date 
 		)
 		VALUES (
 			seq_cartNo.nextval,
 			#{userId},
 			#{proNo},
 			#{cartAmount},
-			#{cartPrice}
+			#{cartPrice},
+			SYSDATE
 		)
 	</insert>
 	

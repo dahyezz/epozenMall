@@ -88,6 +88,7 @@ td{
 			
 	</div>
 </div>
+</div>
 
 <script>
 var products;
@@ -153,7 +154,7 @@ $('#btnOrder').click(function() {
 	var userId = "${user.userId}";
 	var orderPrice = total;
 // 	var price = price;
-	var re = confirm("구매  완료 하시겠습니까??");
+	var re = confirm("구매 하시겠습니까??");
 	if(re){
 		$.ajax({
 			url: "/order"
@@ -166,10 +167,11 @@ $('#btnOrder').click(function() {
 			}
 			,success: function(){
 				alert("구매 완료 되었습니다.");
-				location.href="/cart";
+				location.href="/orderdetail";
 			}
 			, error: function() {
-				console.log("error")
+				alert("오류가 발생하였습니다.구매를 다시 진행해주세요.");
+				return;
 			}
 		});
 	} else {

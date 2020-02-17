@@ -83,12 +83,16 @@ function fn_idChk(){
 		type : "post",
 		dataType : "json",
 		data : {"userId" : $("#userId").val()},
-	success : function(data){
+		success : function(data){
 		if(data == 1){
 			alert("중복된 아이디입니다.");
 		}else if(data == 0){
 			$("#idChk").attr("value", "Y");
 		alert("사용가능한 아이디입니다.");
+		} ,
+		error: function(){
+			console.log("error")
+			alert("다시 시도해주세요")
 		}
 	}
 	})

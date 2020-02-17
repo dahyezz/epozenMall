@@ -17,6 +17,7 @@
 /* 	display: inline-block; */
 	box-sizing: inherit;
 	vertical-align: -webkit-baseline-middle;
+/* 	width: calc(100% - 40px); */
 }
 .comment-clearfix {
 	width: 25px;
@@ -33,6 +34,9 @@
 }
 .comment-clearfix{
 	width: 25px;
+	height: 25px;
+	float: left;
+	margin-right: 10px;
 	display: inline-block;
 	font-size: 12px;
 	color: #ff7473;
@@ -46,7 +50,7 @@
 	border-top: 1px dotted #9e9e9e;
 }
 .comment-content {
-/* 	margin-left: 25px; */
+/*  	margin-left: 30px;  */
 }
 .recomment_div {
 	display: inline-block;
@@ -73,6 +77,13 @@ recomment_div>a{
 }
 .recomment {
 	float: right;
+	margin-left: 10px;
+}
+.delete {
+	float: right;
+}
+#cmtWrite {
+	margin: 0 0 50px 20px;
 }
 </style>
 
@@ -87,6 +98,7 @@ recomment_div>a{
 				<span class="cell col1">${c.userId}</span><br>
 				<span class="cell col2"><fmt:formatDate value="${c.comRegdate}" pattern="yyyy-MM-dd"/></span>
 				<c:if test="${c.comDepth eq 0 && login }"><a href="javascript:void(0)" class="recomment">답글작성</a></c:if>
+				<c:if test="${c.userId eq userId }"><a href="javascript:void(0)" class="delete">삭제</a></c:if>
 			</div>
 
 
@@ -162,7 +174,8 @@ recomment_div>a{
 </div>
 
 <div class="writeCmt" id="writeCmt">
+	<p style="color:red; margin:0;" id="counter"></p>
 	<textarea id="commentcontent" cols="100" rows="3"></textarea>
-	<button id="cmtWrite">등록</button>
+	<button class="btn btn-sm" id="cmtWrite">등록</button>
 <!-- 			<input id="commentBtn" type="button" value="등록"> -->
 </div>

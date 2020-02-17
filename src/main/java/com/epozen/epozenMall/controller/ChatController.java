@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.epozen.epozenMall.vo.Chat;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class ChatController {
 	
 	@GetMapping("/chat")
@@ -29,6 +32,7 @@ public class ChatController {
 	@MessageMapping("/chat")
 	@SendTo("/topic/chat")
 	public Chat chat(Chat chat) throws Exception {
+//		log.info("{}", chat);
 		return new Chat(chat.getName(), chat.getMessage());
 	}
 	

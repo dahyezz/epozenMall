@@ -26,7 +26,6 @@ import com.epozen.epozenMall.vo.ShopUserVO;
 @Controller
 public class ProductController {
 	
-	private static final String String = null;
 	@Autowired
 	ProductService productService;
 	
@@ -84,10 +83,34 @@ public class ProductController {
 		return mav;
 		
 	} 
+//	public static class CardOrder{
+//		private List<Order> productList;
+//		private String receiveName;
+//		private String receiveAddr;
+//		private String receivePhoneNo;
+//		private String etc;
+//		private Integer deliveryCost;
+//		private Payment payment;
+//	}
+//	public static class SessionInfo{
+//		private Boolean isAdmin;
+//		private String userId;
+//		private List<Product> recentlyV
+//	}
+//	public static class Payment{
+//		private Long couponId;
+//		private Long totalCost;
+//		
+//	}
+//	public static class Order{
+//		private Long prodductId;
+//		private Integer amounts;
+//	}
 	//구매 하기
 	@PostMapping("/order")
-	public String orderProductProc(ShopOrderVO shopOrderVO, HttpSession session,String products, String price, Map<String, Object> map) {
+//	public String orderProductProc(ShopOrderVO shopOrderVO, HttpSession session,String products, String price, CardOrder map) {
 		
+	public String orderProductProc(ShopOrderVO shopOrderVO, HttpSession session,String products, String price, Map<String,Object> map) {
 		map.put("products", products);
 		map.put("price", price);
 		map.put("userId", session.getAttribute("userId").toString());
@@ -97,7 +120,7 @@ public class ProductController {
 		productService.insertOrder(shopOrderVO);
 		productService.buyOrderde(map);
 		
-		return "redirect:/cart";
+		return "redirect:/orderdetail";
 	}
 
 	// 상품평

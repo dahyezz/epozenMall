@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+
 <c:import url="/WEB-INF/views/main.jsp" />
 
 <script type="text/javascript">
@@ -58,13 +59,14 @@ $(document).ready(function() {
 }
 
 .list > table {
-	width: 100%;
+	width: 85%;
 	border-collapse: collapse;
+	margin: auto;
 }
 
 .list > table > thead {
 	text-align: center;
-	background-color: #b5abab;
+	background-color: #ccc;
 }
 .list > table>thead>tr>th {
 	text-align: center;
@@ -81,7 +83,7 @@ $(document).ready(function() {
 .footer {
 	width: 100%;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 }
 .pagination-container {
 	display: inline-block;
@@ -90,20 +92,29 @@ $(document).ready(function() {
 .chat {
 	display: inline-block;
 	float: right;
+	margin-right: 60px;
 }
-
+#listSelect {
+	margin-bottom: 10px;
+	margin-left: 7%;
+}
+#thumbnail {
+	width: 168px;
+	height: 168px;	
+}
 </style>
 
 <div class="content">
-
-	<select name="cate" id="listSelect">
-		<option value="all" selected="selected">전체</option>
-		<option value="fashion">패션의류</option>
-		<option value="goods">생활용품</option>
-		<option value="cosmetic">화장품</option>
-	</select>
 	
 	<div class="list">
+		
+		<select name="cate" id="listSelect">
+			<option value="all" selected="selected">전체</option>
+			<option value="fashion">패션의류</option>
+			<option value="goods">생활용품</option>
+			<option value="cosmetic">화장품</option>
+		</select>
+	
 		<table>
 			<thead>
 				<tr>
@@ -115,12 +126,15 @@ $(document).ready(function() {
 			<tbody>
 				<c:forEach items="${proList }" var="i">
 					<tr>
-						<td>
+						<td style="text-align: center;">
 						<c:if test="${i.imgNo eq 0 }">
-							<img id="thumbnail" src="/image/default.png">	
-					</c:if>
+							<img id="thumbnail" src="/image/default.PNG">	
+						</c:if>
+						<c:if test="${i.imgNo ne 0 }">
+							<img id="thumbnail" src="/image/${i.imgNo }.png" >
+						</c:if>
 					</td>
-					<td><a href="/prodetail?proNo=${i.proNo}">${i.proName }</a></td>	
+					<td style="padding: 10px 0 10% 0;"><a style=" text-decoration: none; font-size: 16px; font-weight: 600; color: black;" href="/prodetail?proNo=${i.proNo}">${i.proName }</a></td>	
 					<td style="text-align: right"><fmt:formatNumber value="${i.proPrice }" pattern="##,###원"/></td>	
 					</tr>
 				</c:forEach>

@@ -14,7 +14,7 @@ import com.epozen.epozenMall.vo.UserOrderVO;
 
 @Controller
 public class PostController {
-	
+
 	@Autowired
 	PostService postService;
 
@@ -24,6 +24,7 @@ public class PostController {
 		mav.addObject("product", userOrderVO);
 		mav.setViewName("/product/procom");
 		return mav;
+		
 	}
 	
 	@PostMapping("/procom")

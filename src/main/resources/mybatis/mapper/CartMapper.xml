@@ -18,6 +18,10 @@
 			A.pro_no = B.pro_no
 		AND 
 			A.user_id = #{userId }
+		AND 
+			A.cart_date >= sysdate-30
+        ORDER BY 
+        	A.cart_no
 	</select>
 	
 	<!-- 장바구니 삭제 -->

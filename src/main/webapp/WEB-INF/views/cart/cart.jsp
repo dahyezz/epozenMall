@@ -80,7 +80,8 @@ $(document).ready(function() {
 				}
 			}
 			, error : function() {
-				console.log("error")
+				alert("관리자에게 문의하세요")
+// 				return;
 			}
 		})
 
@@ -240,6 +241,7 @@ function proStatus(deliveryCost, total){
 	text-decoration: none;
 	color: black;
 	font-weight: 600;
+	margin-left: 30px;
 }
 .totalInfo {
 	margin-bottom: 15px;
@@ -261,6 +263,11 @@ function proStatus(deliveryCost, total){
 .btnContent {
 	text-align: center;
 }
+#thumbnail {
+	width: 168px;
+	height: 168px;	
+}
+
 </style>
 
 <!-- 총 주문금액 계산 -->
@@ -298,10 +305,13 @@ function proStatus(deliveryCost, total){
 				</td>
 				<td>
 				<c:if test="${i.imgNo eq 0 }">
-					<img id="thumbnail" src="/image/default.png">	
+					<img id="thumbnail" src="/image/default.PNG">	
+				</c:if>
+				<c:if test="${i.imgNo ne 0 }">
+					<img id="thumbnail" src="/image/${i.imgNo }.png" >
 				</c:if>
 				</td>
-				<td style="text-align: left;">
+				<td style="text-align: left; padding: 10px 0 10% 0;">
 					<a id="proname_a" href="/prodetail?proNo=${i.proNo}">${i.proName }</a>
 				</td>
 				<td style="text-align: right;" class="prClasss" id="price_${i.proNo }">
@@ -315,7 +325,10 @@ function proStatus(deliveryCost, total){
 					</c:forEach>
 					</select>
 				</td>
-				<td id="delivery">2,500원</td>
+				<td id="delivery">
+				<c:if test="${i.proPrice * i.cartAmount >= 50000 }">0원</c:if>
+				<c:if test="${i.proPrice * i.cartAmount < 50000 }">2,500원</c:if>
+				</td>
 			</tr>
 			</c:forEach>	
 
