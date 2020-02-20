@@ -98,7 +98,7 @@ recomment_div>a{
 				<span class="cell col1">${c.userId}</span><br>
 				<span class="cell col2"><fmt:formatDate value="${c.comRegdate}" pattern="yyyy-MM-dd"/></span>
 				<c:if test="${c.comDepth eq 0 && login }"><a href="javascript:void(0)" class="recomment">답글작성</a></c:if>
-				<c:if test="${c.userId eq userId }"><a href="javascript:void(0)" class="delete">삭제</a></c:if>
+<%-- 				<c:if test="${c.userId eq userId }"><a href="javascript:void(0)" class="delete">삭제</a></c:if> --%>
 			</div>
 
 

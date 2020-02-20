@@ -84,18 +84,17 @@ function fn_idChk(){
 		dataType : "json",
 		data : {"userId" : $("#userId").val()},
 		success : function(data){
-		if(data == 1){
-			alert("중복된 아이디입니다.");
-		}else if(data == 0){
-			$("#idChk").attr("value", "Y");
-		alert("사용가능한 아이디입니다.");
-		} ,
-		error: function(){
+			if(data == 1){
+				alert("중복된 아이디입니다.");
+			}else if(data == 0){
+				$("#idChk").attr("value", "Y");
+				alert("사용가능한 아이디입니다.");
+			}
+		}, error: function(){
 			console.log("error")
 			alert("다시 시도해주세요")
 		}
-	}
-	})
+	});
 }
  // 비밀 번호 확인
 $('#userPasswordCheck').focusout(function () {
@@ -142,7 +141,7 @@ function check(){
 	}
 	else if(form.agree.checked ==""){
 		alert("약관에 동의해주세요.");
-		form.checkag.focus();
+// 		form.checkag.focus();
 		return false;
 	}
 	 else 

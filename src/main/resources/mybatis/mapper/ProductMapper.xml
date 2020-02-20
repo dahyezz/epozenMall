@@ -96,6 +96,7 @@
 					A.pro_no = C.pro_no
 				AND 
 					A.pro_no = #{proNo}
+				ORDER BY A.procom_no desc
 		        ) T
 		    )
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }

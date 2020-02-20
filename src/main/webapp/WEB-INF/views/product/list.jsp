@@ -22,8 +22,10 @@ $(document).ready(function() {
 		$('#listSelect').val("fashion").prop("selected", true);
 	} else if(lisel == 'goods') {
 		$('#listSelect').val("goods").prop("selected", true);
-	} else {
+	} else if(lisel == "cosmetic") {
 		$('#listSelect').val("cosmetic").prop("selected", true);
+	} else {
+		$('#listSelect').val("all").prop("selected", true);
 	}
 		
 	
