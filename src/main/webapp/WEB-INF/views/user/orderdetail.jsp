@@ -114,9 +114,19 @@ $(document).ready(function(){
 	text-decoration: none;
 	color: black;
 	font-weight: 600;
+	font-size: 16px;
+	vertical-align: top;
 }
 .footer {
 	text-align: center;
+}
+#thumbnail {
+	width: 168px;
+	height: 168px;	
+}
+
+#proname_a {
+	margin-left: 30px;
 }
 </style>
 
@@ -136,7 +146,7 @@ $(document).ready(function(){
 			<table>
 			<thead>
 				<tr>
-					<th style="width: 20%">주문일자</th>
+					<th style="width: 15%">주문일자</th>
 					<th>상품사진</th>
 					<th>상품명</th>
 					<th style="width: 15%">배송상태</th>
@@ -151,12 +161,15 @@ $(document).ready(function(){
 						</td>
 						<td>
 						<c:if test="${i.imgNo eq 0 }">
-							<img id="thumbnail" src="/image/default.png">	
+							<img id="thumbnail" src="/image/default.PNG">	
+						</c:if>
+						<c:if test="${i.imgNo ne 0 }">
+							<img id="thumbnail" src="/image/${i.imgNo }.png" >
 						</c:if>
 						</td>
-						<td style="text-align: left;">
+						<td style="text-align: left; padding: 10px 0 10% 0;">
 							<a id="proname_a" href="/prodetail?proNo=${i.proNo}">${i.proName }</a><br>
-							<span><fmt:formatNumber value="${i.proPrice }" pattern="##,###원" /></span>
+							<span style="margin-left: 30px;"><fmt:formatNumber value="${i.proPrice }" pattern="##,###원" /></span>
 						</td>
 						<td>${i.orderState }</td>
 						<td>
@@ -165,7 +178,7 @@ $(document).ready(function(){
 						</c:if>
 						<c:if test="${i.orderState eq '배송완료'}">
 							<input type="hidden" id="writeProName" value="${i.proName }" />
-							<input type="hidden" id="writeorderDate" value="<fmt:formatDate value='${i.orderDate }' pattern='yyyy/MM/dd'/>" />
+							<input type="hidden" id="writeorderDate" value="<fmt:formatDate value='${i.orderDate }' pattern='yyyy/MM/dd HH:mm'/>" />
 							<c:if test="${i.procomChk > 0 }">
 								<button class="btn" id="writeBtn" value="${i.proNo }" disabled="disabled">리뷰쓰기</button>
 							</c:if>

@@ -6,7 +6,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>%t> [%p] [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] %m %n</Pattern>
+            <Pattern>%t> [%p] [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] %M %m %n</Pattern>
         </layout>
     </appender>
     

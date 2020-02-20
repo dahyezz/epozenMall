@@ -141,7 +141,7 @@ public class UserController {
 
 		userService.updateUser(shopUserVO);
 
-		return "redirect:/information";
+		return "redirect:/orderdetail";
 	}
 
 	// 회원 탈퇴 처리

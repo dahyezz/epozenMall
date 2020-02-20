@@ -96,6 +96,7 @@
 					A.pro_no = C.pro_no
 				AND 
 					A.pro_no = #{proNo}
+				ORDER BY A.procom_no desc
 		        ) T
 		    )
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
@@ -108,14 +109,16 @@
 			user_id,
 			pro_no,
 			cart_amount,
-			cart_Price 
+			cart_Price,
+			cart_date 
 		)
 		VALUES (
 			seq_cartNo.nextval,
 			#{userId},
 			#{proNo},
 			#{cartAmount},
-			#{cartPrice}
+			#{cartPrice},
+			SYSDATE
 		)
 	</insert>
 	

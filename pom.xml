@@ -87,13 +87,13 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
-        <!-- 리로드 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+<!--         리로드 -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-devtools</artifactId> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 			<optional>true</optional> -->
+<!-- 		</dependency> -->
 		
 		<!-- 웹소켓 채팅을 위한 디펜던시 -->
 		<dependency>
